@@ -46,11 +46,29 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>> {
     public void insert(AnyType x) {
         root = insert(x, root);
 
-        // 在插入完成后判断是否应该旋转树
-        if ((root.right.height() - root.left.height()) > 1) { // 执行左旋转
-            if (root.right != null && root.right.rightHeight() < root.leftHeight()) {
-                // 先对右子树进行旋转
-
+        // 在插入完成后判断是否应该旋转树, sub > 1:右子树大于左子树，sub < -1:右子树小于左子树
+        int sub = (root.rightHeight() - root.leftHeight());
+        if (sub > 1) { // 执行左旋转
+            // 如果它的右子树的 左子树 大于 它的右子树
+            if (root.right != null && root.right.leftHeight() > root.right.rightHeight()) {
+                // 先对当前节点的右子树进行 右旋转
+                root.right.rightRotate();
+                // 再对当前节点进行左旋转
+                root.leftHeight();
+            } else {
+                // 直接左旋转即可
+                root.leftRotate();
+            }
+        } else if (sub < -1) { // 执行右旋转
+            // 如果它的左子树的 右子树 大于 它的左子树
+            if (root.left != null && root.left.rightHeight() > root.left.leftHeight()) {
+                // 先对当前节点的左子树 进行左旋转
+                root.left.leftRotate();
+                // 再对当前节点进行右旋转
+                root.rightHeight();
+            } else {
+                // 直接右旋转即可
+                root.rightRotate();
             }
         }
     }
@@ -198,8 +216,18 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>> {
             newNode.left = this.left; // 2
             newNode.right = this.right.left; // 3
             this.element = this.right.element; // 4
-            this.right = right.right; // 5
-            this.left = newNode;
+            this.right = this.right.right; // 5
+            this.left = newNode; // 6
+        }
+
+        // 右旋转
+        public void rightRotate() {
+            BinaryNode newNode = new BinaryNode(element);
+            newNode.right = this.right;
+            newNode.left = this.left.right;
+            this.element = this.left.element;
+            this.left = this.left.left;
+            this.right = newNode;
         }
 
         AnyType element;

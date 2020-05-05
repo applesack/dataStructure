@@ -26,6 +26,9 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
     public boolean isEmpty() {
         return root==null;
     }
+    public BinaryNode<AnyType> getRoot() {
+        return root;
+    }
 
     public boolean contains(AnyType x) {
         return contains(x, root);
@@ -137,7 +140,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
     }
 
     // 二叉树结点
-    private static class BinaryNode<AnyType> {
+    public static class BinaryNode<AnyType> {
 
         BinaryNode(AnyType theElement) {
             this(theElement, null, null);
@@ -147,6 +150,29 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
             element = theElement;
             left = lt;
             right = rt;
+        }
+
+        // 返回右子树的高度
+        public int leftHeight() {
+            if (left == null) {
+                return 0;
+            }
+            return left.height();
+        }
+
+        // 返回右子树的高度
+        public int rightHeight() {
+            if (right == null) {
+                return 0;
+            }
+            return right.height();
+        }
+
+        // 以该节点为跟节点的树的高度
+        public int height() {
+            return Math.max(
+                    (left == null) ? 0 : left.height(),
+                    (right == null) ? 0 : right.height()) + 1;
         }
 
         AnyType element;

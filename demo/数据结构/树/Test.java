@@ -22,17 +22,23 @@ public class Test {
 
     @org.junit.Test
     public void testAVL() {
-        AVLTree<Integer> tree = new AVLTree<>();
+        AVLTree<Integer> AVLtree = new AVLTree<>();
+        BinarySearchTree tree = new BinarySearchTree();
 
-        tree.insert(3);
-        tree.insert(4);
-        tree.insert(5);
-        tree.insert(6);
-        tree.insert(7);
-        tree.insert(6);
+        for (int i = 0; i<1000; i++) {
+            AVLtree.insert(i);
+            tree.insert(i);
+        }
 
-        tree.printTree();
-        System.out.println("在没有做平衡处理前树的高度" +
-                tree.getRoot().height());
+//        tree.printTree();
+        System.out.println("普通二叉树-------");
+        System.out.println("左子树" + tree.getRoot().rightHeight());
+        System.out.println("右子树"+tree.getRoot().leftHeight());
+
+        System.out.println("AVL二叉树-------");
+        System.out.println("左子树" + AVLtree.getRoot().rightHeight());
+        System.out.println("左子树-右子树" + AVLtree.getRoot().left.rightHeight());
+        System.out.println("左子树-左子树" + AVLtree.getRoot().left.leftHeight());
+        System.out.println("右子树" + AVLtree.getRoot().leftHeight());
     }
 }
