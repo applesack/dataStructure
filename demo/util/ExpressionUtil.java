@@ -120,7 +120,7 @@ public class ExpressionUtil {
                 while (!temp_stack.peek().equals("(")) {
                     result_stack.push(temp_stack.pop());
                 }
-                temp_stack.pop();
+                temp_stack.pop(); // 将临时栈的括号弹出，这样就消除了一对括号
             } else { // 当前项是操作符
                 while (temp_stack.size() != 0 && (OPERATOR.compare(temp_stack.peek(), item) >= 0)) {
                     result_stack.push(temp_stack.pop());
@@ -203,7 +203,7 @@ public class ExpressionUtil {
      * @return 满足条件: 以数字或者加减号开头 中间可以有小数点  假如中间有小数点，小数点后面必须是数字并且必须以数字结尾
      */
     private static boolean isNumber(String str) {
-        return str.matches("^[-+]{0,1}[0-9]+$|^[-+]{0,1}[0-9]+[.]+[0-9]+$");
+        return str.matches("^[-+]{0,1}[0-9]+$|^[-+]{0,1}[0-9]+[.]{1,1}[0-9]+$");
     }
 
     /**
@@ -219,9 +219,10 @@ public class ExpressionUtil {
     public void test() {
 //        System.out.println(isNumber("l"));
 
-        String expression = "ln(log(14))/5";
+        String expression = "(2+5)/(log4)";
+        System.out.println("表达式: " + expression);
         try {
-            System.out.println(doExpression(expression));
+            System.out.println("结果 " + doExpression(expression));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -3,7 +3,6 @@ package util;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author : flutterdash@qq.com
@@ -21,14 +20,13 @@ public class AmountInWordsUtil {
             "壹","贰","叁","肆","伍","陆","柒","捌","玖"
     };
 
+    // 大写单位
     private static String[] UPPER_UNIT = {
-            "零"	,"拾","佰","仟","萬","亿"
+            "零"	,"拾","佰","仟","萬","亿","萬",""
     };
 
+    // 大写货币单位
     private static String[] CURRENCY_UNIT = {"元","角","分"};
-
-    private static String UPPER_RESULT; // 大写转换结果
-    private static String LOWER_RESULT; // 小写转换结果
 
     static {
         WEIGHT = new HashMap<>();
@@ -50,55 +48,90 @@ public class AmountInWordsUtil {
         if (number_ls.length > 2)
             throw new Exception("请检查要转换成大写的数字是否包含超过一个小数点: " + numberStr);
 
+        if (number_ls[0].length() > 16)
+            throw new Exception("数目过于巨大: " + number_ls[0].length() + "位");
+
         String left = doIntegerPart(number_ls[0]);
         String right = doDecimalPart(number_ls[1]);
 
-        System.out.println("输出: " + left + "圆 " + right);
         return left + "圆 " + right;
     }
 
-    public static String doIntegerPart(String integer) {
+    /**
+     * 将一个整数字符串转换成中文大写
+     * @param integer 要处理的字符串
+     * @return
+     */
+    private static String doIntegerPart(String integer) {
 
-        int count;
-        boolean flag = true;
-        StringBuffer result = new StringBuffer();
-        for (int i = 0; i<integer.length(); i++) {
+        int index = 0;
+        String integer_str = integer;
+        String temp;
+        StringBuffer result_str = new StringBuffer();
 
-            if (integer.charAt(i) == '0') {
-                if (flag)
-                    result.append("零");
-                flag = false;
-                continue;
+        // 为了方便处理，把要处理的字符串在前面补0
+        if (integer.length()%4 != 0) {
+            for (index = 0; index<(4 - integer.length()%4); index++) {
+                integer_str = "0" + integer_str;
             }
-
-            flag = true;
-            result.append(UPPER_CASE[Integer.valueOf(String.valueOf(integer.charAt(i))) - 1]);
-
-            count = integer.length() - i;
-            result.append(doDigit(count));
         }
-        return result.toString();
+
+        // 4个一组来处理, 用一个变量来存储当前是第几组
+        int group_index;
+        for (index = 0; index<(integer_str.length()/4); index++) {
+            temp = integer_str.substring(4*index, 4*index+4);
+
+            result_str.append(doDigitIn1to4(temp));
+
+            group_index = (integer_str.length()/4) - index;
+            // 假如当前处理的4个字符不是最低位则加上单位
+            if (group_index > 1) {
+                // index 1:万 2:亿
+                result_str.append(UPPER_UNIT[group_index + 2]);
+            }
+        }
+
+        // 减去最前面的零
+        if (result_str.toString().startsWith("零")) {
+            return result_str.substring(1, result_str.length());
+        }
+
+        return result_str.toString();
     }
 
     /**
-     * 根据一个数的位数，返回对应的单位. 输入10,返回 拾亿
-     * @param count
+     * 根据一个数的位数，返回形容这个位数的最大单位的下标.
+     * @param num
      * @return
      */
-    private static String doDigit(int count) {
-        if (count <= 1)
-            return "";
-
-        int difference; //差值
-        int i;
-        for (i = UPPER_UNIT.length-1; i>=1; i--) {
-            difference = WEIGHT.get(UPPER_UNIT[i]);
-            if (count >= difference) {
-                count -= difference;
-                break;
-            }
+    private static String doDigitIn1to4(String num) {
+        String number = num;
+        if (number.length() < 4) {
+            for (int i = 0; i<4-number.length(); i++)
+                number = "0" + number;
         }
-        return doDigit(count) + UPPER_UNIT[i];
+
+        StringBuffer resultStr = new StringBuffer();
+        String temp;
+        boolean flag = false;
+        for (int i = 0; i<number.length(); i++) {
+            temp = String.valueOf(number.charAt(i));
+            if (temp.equals("0")) {
+                flag = true;
+                continue;
+            }
+
+            if (flag)
+                resultStr.append("零");
+            flag = false;
+
+            resultStr.append(UPPER_CASE[Integer.valueOf(String.valueOf(number.charAt(i))) - 1]);
+
+            if (i == number.length()-1) continue; // 假如当前的数字是最后一位，则不带单位
+
+            resultStr.append(UPPER_UNIT[3-i]);
+        }
+        return resultStr.toString();
     }
 
     /**
@@ -128,8 +161,13 @@ public class AmountInWordsUtil {
     public void testThis() {
 
         try {
-            // todo bug待处理，数值显示不正确
-            number2words("32000000.97");
+//            number2words("33333333.97");
+//            System.out.println(doDigit(16));
+//            System.out.println(doIntegerPart("1200001"));
+//            System.out.println(doDigitIn1to4("1"));
+//            System.out.println(doIntegerPart("1200001020000001"));
+            String number = "1200012";
+            System.out.println("输出: " + number2words(number));
         } catch (Exception e) {
             e.printStackTrace();
         }
