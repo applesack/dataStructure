@@ -23,13 +23,18 @@ public class ExpressionUtil {
 
     // 计算表达式字符串
     public static Double doExpression(String expressionStr) throws Exception {
+        if (expressionStr == null)
+            return null;
 
         List<String> infix = str2infix(expressionStr);
         System.out.println("中缀表达式" + infix.toString());
 
-        List<String> temp = addOperator(infix);
-        System.out.println("临时数组" + temp.toString());
+        return doExpression(infix);
+    }
 
+    // 处理中缀表达式列表
+    public static Double doExpression(List<String> infix_list) throws Exception {
+        List<String> temp = addOperator(infix_list);
         List<String> postfix = infix2postfix(temp);
         System.out.println("后缀表达式" + postfix.toString());
 
@@ -145,7 +150,8 @@ public class ExpressionUtil {
         for (int i = 0; i<infix_list.size()-1; i++) {
             // todo 在这里加一些判断，检查列表里是否有无法处理的字符格式
 
-            if (isNumber(infix_list.get(i)) && infix_list.get(i+1).equals("(")) {
+            if (isNumber(infix_list.get(i)) && infix_list.get(i+1).equals("(") ||
+                    infix_list.get(i).equals(")") && infix_list.get(i+1).equals("(")) {
                 infix_list.add(i+1, "*");
             }
         }
@@ -202,7 +208,7 @@ public class ExpressionUtil {
      * @param str 要匹配的字符串
      * @return 满足条件: 以数字或者加减号开头 中间可以有小数点  假如中间有小数点，小数点后面必须是数字并且必须以数字结尾
      */
-    private static boolean isNumber(String str) {
+    public static boolean isNumber(String str) {
         return str.matches("^[-+]{0,1}[0-9]+$|^[-+]{0,1}[0-9]+[.]{1,1}[0-9]+$");
     }
 
@@ -211,7 +217,7 @@ public class ExpressionUtil {
      * @param str 要匹配的字符串
      * @return 满足条件: 最少由一个大写或者小写字母构成
      */
-    private static boolean isLetter(String str) {
+    public static boolean isLetter(String str) {
         return str.matches("^[a-zA-Z]+$");
     }
 
@@ -219,7 +225,7 @@ public class ExpressionUtil {
     public void test() {
 //        System.out.println(isNumber("l"));
 
-        String expression = "(2+5)/(log4)";
+        String expression = "12+(1)";
         System.out.println("表达式: " + expression);
         try {
             System.out.println("结果 " + doExpression(expression));

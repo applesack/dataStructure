@@ -166,7 +166,7 @@ public class AmountInWordsUtil {
 //            System.out.println(doIntegerPart("1200001"));
 //            System.out.println(doDigitIn1to4("1"));
 //            System.out.println(doIntegerPart("1200001020000001"));
-            String number = "1200012";
+            String number = "100.12";
             System.out.println("输出: " + number2words(number));
         } catch (Exception e) {
             e.printStackTrace();
