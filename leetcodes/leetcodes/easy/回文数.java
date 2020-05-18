@@ -1,6 +1,5 @@
-package easy;
+package leetcodes.easy;
 
-import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 

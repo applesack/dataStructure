@@ -1,8 +1,4 @@
-package easy;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+package leetcodes.easy;
 
 /**
  * @author : flutterdash@qq.com

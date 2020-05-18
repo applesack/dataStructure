@@ -1,4 +1,4 @@
-package easy;
+package leetcodes.easy;
 
 /**
  * @author : flutterdash@qq.com

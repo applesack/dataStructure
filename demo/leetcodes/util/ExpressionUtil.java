@@ -1,4 +1,4 @@
-package util;
+package leetcodes.util;
 
 import org.junit.Test;
 

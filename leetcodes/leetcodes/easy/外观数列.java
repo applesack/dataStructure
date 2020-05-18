@@ -1,10 +1,6 @@
-package easy;
+package leetcodes.easy;
 
 import org.junit.Test;
-
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Stack;
 
 /**
  * @author : flutterdash@qq.com

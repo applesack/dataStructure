@@ -1,4 +1,4 @@
-package util;
+package leetcodes.util;
 
 /**
  * @author : flutterdash@qq.com

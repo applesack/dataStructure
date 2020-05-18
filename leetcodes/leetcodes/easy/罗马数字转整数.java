@@ -1,8 +1,6 @@
-package easy;
+package leetcodes.easy;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
 
 /**
  * @author : flutterdash@qq.com
