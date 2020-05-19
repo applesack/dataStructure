@@ -1,11 +1,19 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
+
 import java.util.HashMap;
 
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年04月06日 11:49
  */
+
+@LeetCodes(
+        id = 13,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/06"
+)
 public class 罗马数字转整数 {
 
     public static void main(String[] args) {

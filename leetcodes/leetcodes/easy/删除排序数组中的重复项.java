@@ -1,5 +1,6 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -8,6 +9,12 @@ import java.util.Arrays;
  * @author : flutterdash@qq.com
  * @date : 2020年04月09日 11:25
  */
+
+@LeetCodes(
+        id = 26,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/09"
+)
 public class 删除排序数组中的重复项 {
 
     public static void main(String[] args) {
@@ -29,7 +36,7 @@ public class 删除排序数组中的重复项 {
     }
 
     @Test
-    public void test() {
+    public void Run() {
         System.out.println("111");
     }
 }

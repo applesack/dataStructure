@@ -1,18 +1,19 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
+import org.junit.Test;
+
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年04月06日 14:30
  */
+
+@LeetCodes(
+        id = 14,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/06"
+)
 public class 最长公共前缀 {
-
-    public static void main(String[] args) {
-
-        System.out.println(test(new String[]{"flower", "flow", "flight"}));
-        System.out.println(test(new String[]{"dog", "racecar", "car"}));
-        System.out.println(test(new String[]{"dog"}));
-        System.out.println(test(new String[]{}));
-    }
 
     public static String test(String[] strs) {
 
@@ -41,5 +42,13 @@ public class 最长公共前缀 {
         }
 
         return result;
+    }
+
+    @Test
+    public void Run() {
+        System.out.println(test(new String[]{"flower", "flow", "flight"}));
+        System.out.println(test(new String[]{"dog", "racecar", "car"}));
+        System.out.println(test(new String[]{"dog"}));
+        System.out.println(test(new String[]{}));
     }
 }

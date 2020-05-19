@@ -1,11 +1,18 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
 import org.junit.Test;
 
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年04月08日 11:08
  */
+
+@LeetCodes(
+        id = 69,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/08"
+)
 public class x的平方根 {
 
     public static void main(String[] args) {

@@ -8,7 +8,6 @@ import org.junit.Test;
  */
 public class 最大子序和 {
 
-
     public static int test(int[] nums) {
         int max = Integer.MIN_VALUE;
         int[] dp = new int[nums.length+1];
@@ -23,7 +22,7 @@ public class 最大子序和 {
     }
 
     @Test
-    public void run() {
+    public void Run() {
         System.out.println(test(new int[]{1,2,-3,-4,-5,2,3}));
     }
 }

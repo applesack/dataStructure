@@ -14,11 +14,15 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LeetCodes {
 
+    enum LEVEL {EASY, MEDIUM, HARD}; // 简单，中等，困难
+    enum Status {UN_START, IN_PROGRESS, FINISHED}; // 未开始，进行中，已完成
+
     int id(); // 题目编号
-    enum LEVEL {EASY, MEDIUM, HARD}; // 难度级别
+    Status status() default Status.FINISHED; // 完成状态
+    LEVEL level() default LEVEL.EASY; // 难度级别
     String[] tags() default {}; // 题目的标签
     String comment() default "[None]"; // 留言
 
-    String createDate() default "5月18日"; // 创建日期
-    String finishTime() default "1 h"; // 完成该题所用的时间
+    String createDate() default "[None]"; // 创建日期
+    String finishTime() default "1h"; // 完成该题所用的时间
 }

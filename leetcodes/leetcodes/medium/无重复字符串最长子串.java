@@ -1,11 +1,19 @@
 package leetcodes.medium;
 
+import leetcodes.util.LeetCodes;
 import org.junit.Test;
 
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年05月18日 10:53
  */
+
+@LeetCodes(
+        id = 3,
+        level = LeetCodes.LEVEL.MEDIUM,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/05/18"
+)
 public class 无重复字符串最长子串 {
 
     public static int lengthOfLongestSubstring(String s) {
@@ -28,7 +36,7 @@ public class 无重复字符串最长子串 {
     }
 
     @Test
-    public void Run() {
+    public static void Run() {
         System.out.println(lengthOfLongestSubstring("abcacbdfgt"));
     }
 }

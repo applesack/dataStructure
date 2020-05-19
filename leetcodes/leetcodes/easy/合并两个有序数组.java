@@ -1,5 +1,6 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -8,6 +9,12 @@ import java.util.Arrays;
  * @author : flutterdash@qq.com
  * @date : 2020年05月18日 16:49
  */
+
+@LeetCodes(
+        id = 69,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/08"
+)
 public class 合并两个有序数组 {
 
     public static void merge(int[] nums1, int m, int[] nums2, int n) {

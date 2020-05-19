@@ -1,11 +1,18 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
 import org.junit.Test;
 
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年05月17日 15:56
  */
+
+@LeetCodes(
+        id = 38,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/17"
+)
 public class 外观数列 {
 
     private static String[] result;
@@ -38,7 +45,7 @@ public class 外观数列 {
     }
 
     @Test
-    public void Test() {
+    public void Run() {
         System.out.println(test(2));
     }
 }

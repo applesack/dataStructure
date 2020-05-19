@@ -1,22 +1,21 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
+import org.junit.Test;
+
 import java.util.Stack;
 
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年04月09日 10:07
  */
+
+@LeetCodes(
+        id = 20,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/09"
+)
 public class 有效的括号 {
-
-    public static void main(String[] args) {
-
-        System.out.println(test(""));
-        System.out.println(test("()"));
-        System.out.println(test("()("));
-        System.out.println(test("(]"));
-        System.out.println(test("{[]}"));
-        System.out.println(test("{[[]()]}"));
-    }
 
     public static boolean test(String strs) {
 
@@ -38,5 +37,15 @@ public class 有效的括号 {
         }
 
         return stack.isEmpty();
+    }
+
+    @Test
+    public void Run() {
+        System.out.println(test(""));
+        System.out.println(test("()"));
+        System.out.println(test("()("));
+        System.out.println(test("(]"));
+        System.out.println(test("{[]}"));
+        System.out.println(test("{[[]()]}"));
     }
 }

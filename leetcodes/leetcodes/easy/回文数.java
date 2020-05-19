@@ -1,5 +1,8 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
+import org.junit.Test;
+
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -7,15 +10,13 @@ import java.util.LinkedList;
  * @author : flutterdash@qq.com
  * @date : 2020年04月05日 21:46
  */
+
+@LeetCodes(
+        id = 9,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/05"
+)
 public class 回文数 {
-
-    public static void main(String[] args) {
-
-        System.out.println(test(121));
-        System.out.println(test(-121));
-        System.out.println(test(10));
-        System.out.println(test(0));
-    }
 
     public static boolean test(int num) {
 
@@ -34,5 +35,13 @@ public class 回文数 {
         }
 
         return true;
+    }
+
+    @Test
+    public void Run() {
+        System.out.println(test(121));
+        System.out.println(test(-121));
+        System.out.println(test(10));
+        System.out.println(test(0));
     }
 }

@@ -1,15 +1,22 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
+import org.junit.Test;
+
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年04月05日 20:29
  */
+
+@LeetCodes(
+        id = 27,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/05"
+)
 public class 移除元素 {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
+    @Test
+    public void Run(String[] args) {
 
         test(new int[]{3,2,2,3}, 3);
         test(new int[]{0,1,2,2,3,0,4}, 2);

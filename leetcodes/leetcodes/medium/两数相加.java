@@ -1,11 +1,19 @@
 package leetcodes.medium;
 
+import leetcodes.util.LeetCodes;
 import org.junit.Test;
 
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年05月17日 21:46
  */
+
+@LeetCodes(
+        id = 2,
+        level = LeetCodes.LEVEL.MEDIUM,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/05/17"
+)
 public class 两数相加 {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {

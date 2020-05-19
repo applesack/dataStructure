@@ -1,18 +1,19 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
+import org.junit.Test;
+
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年04月05日 21:28
  */
+
+@LeetCodes(
+        id = 28,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/05"
+)
 public class 实现strStr {
-
-    public static void main(String[] args) {
-
-        System.out.println(test("hello", "ll"));
-        System.out.println(test("aaaaa", "bba"));
-        System.out.println(test("aa", "bba"));
-        System.out.println(test("aaaaa", ""));
-    }
 
     public static int test(String haystack, String needle) {
 
@@ -37,5 +38,13 @@ public class 实现strStr {
         }
 
         return -1;
+    }
+
+    @Test
+    public void Run() {
+        System.out.println(test("hello", "ll"));
+        System.out.println(test("aaaaa", "bba"));
+        System.out.println(test("aa", "bba"));
+        System.out.println(test("aaaaa", ""));
     }
 }

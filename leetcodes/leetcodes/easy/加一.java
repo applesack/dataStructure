@@ -1,5 +1,6 @@
 package leetcodes.easy;
 
+import leetcodes.util.LeetCodes;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -8,6 +9,12 @@ import java.util.Arrays;
  * @author : flutterdash@qq.com
  * @date : 2020年05月17日 20:14
  */
+
+@LeetCodes(
+        id = 66,
+        status = LeetCodes.Status.FINISHED,
+        createDate = "2020/04/17"
+)
 public class 加一 {
 
     private static int[] test(int[] digits) {
