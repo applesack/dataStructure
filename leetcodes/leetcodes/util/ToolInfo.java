@@ -9,15 +9,16 @@ public class ToolInfo {
      * 单独开一个类来写工具的使用
      */
 
+    private static String title = "::工具说明::\n";
+    private static String toolList =
+            "   1.help 显示帮助\n" +
+                    "   2.list 输出本地已经存在的题目编号\n" +
+                    "   3.info 具体输出本地指定题目的信息\n" +
+                    "   4.test 测试本地已经存在的题目代码\n" +
+                    "   5.reload 重新加载\n";
+
+    // 返回命令列表
     public static String Help() {
-
-        String title = "::工具说明::\n";
-        String toolList =
-                "   1.help 显示帮助\n" +
-                "   2.list 输出本地已经存在的题目编号\n" +
-                "   3.info 具体输出本地指定题目的信息\n" +
-                "   4.test 测试本地已经存在的题目代码";
-
         return title + toolList;
     }
 
@@ -34,6 +35,10 @@ public class ToolInfo {
                 break;
             case "test":
                 System.out.println(test);
+                break;
+            case "reload":
+                System.out.println(reload);
+                break;
             default:
                 System.err.println("暂时不支持该功能");
                 break;
@@ -67,5 +72,11 @@ public class ToolInfo {
             "输入题目的编号即可运行对应的代码\n" +
             "例如 test 2 运行第二题的代码\n" +
             "但是可能因为指定的类里没有名为Run的方法而运行错误\n";
+
+    private static String reload =
+            "::reload-重新加载::\n" +
+            "无参数\n" +
+            "重新加载包下的.class类文件\n" +
+            "在有新的.class文件加入的时候使用\n"                ;
 
 }

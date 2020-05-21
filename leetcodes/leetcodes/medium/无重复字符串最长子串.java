@@ -36,7 +36,7 @@ public class 无重复字符串最长子串 {
     }
 
     @Test
-    public static void Run() {
+    public void Run() {
         System.out.println(lengthOfLongestSubstring("abcacbdfgt"));
     }
 }

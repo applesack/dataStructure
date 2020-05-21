@@ -9,8 +9,8 @@ import java.util.*;
  */
 public class LeetCodeTool implements Runnable {
 
-    private final String pack = "leetcodes";
-    private ArrayList<Class<?>> examples;
+    private final String pack = "leetcodes"; // 指定读取`leetcode`包下的所以.class文件
+    private ArrayList<Class<?>> examples; // 存放含有`LeetCodes`注解的Class对象
 
     // 初始化
     public void init() {
@@ -39,7 +39,7 @@ public class LeetCodeTool implements Runnable {
         commands();
     }
 
-    // 循环输入命令
+    // 循环输入命令 执行命令
     private void commands() {
 
         Scanner scanner = new Scanner(System.in);
@@ -73,12 +73,15 @@ public class LeetCodeTool implements Runnable {
                 case "test":
                     test(cmd_val);
                     break;
+                case "reload":
+                    reload();
+                    return; // 选择重新载入后退出本方法
                 case "exit":
                     System.err.println("正在退出");
                     System.exit(0);
                     break;
                 default:
-                    System.err.println("没有这个命令!! `" +cmd_name+ "`");
+                    System.err.println("没有这个命令!! `" + cmd_name + "`");
                     break;
             }
 
@@ -142,13 +145,13 @@ public class LeetCodeTool implements Runnable {
         System.out.println("    简单:" + example_info[0][0] + "\t 完成:" + example_info[2][0] + "\t  未完成:" + example_info[1][0]);
         System.out.println("    中等:" + example_info[0][1] + "\t 完成:" + example_info[2][1] + "\t  未完成:" + example_info[1][1]);
         System.out.println("    困难:" + example_info[0][2] + "\t 完成:" + example_info[2][2] + "\t  未完成:" + example_info[1][2]);
-
         printLine();
     }
 
     /**
      * 输出cmd代表的难度级别的题目id
      * 具体如何使用 请输入命令 help list
+     *
      * @param cmd
      */
     private void list(String cmd) {
@@ -194,26 +197,29 @@ public class LeetCodeTool implements Runnable {
 
     /**
      * 输出cmd(是整数)
+     * 具体使用 请输入 help info
+     *
      * @param cmd
      */
     private void info(String cmd) {
         Integer id = StringToInteger(cmd);
         if (id == -1) return; // cmd参数无效
 
-        Class<?> example = getClassById(id);
-        if (example != null) {
+        try {
+            Class<?> example = getClassById(id);
             // 先输出题目
             printSimple(example);
 
             LeetCodes a = example.getAnnotation(LeetCodes.class);
             printMessage(a);
-        } else {
-            System.err.println("题目编号 `" +cmd+ "` 在本地不存在");
+        } catch (Exception e) { // id 在本地不存在
+            e.printStackTrace();
         }
     }
 
     /**
      * 运行cmd所指的Class文件的Run方法
+     * 具体使用请输入 help test
      * @param cmd
      */
     private void test(String cmd) {
@@ -223,6 +229,7 @@ public class LeetCodeTool implements Runnable {
         Method RunMethod = null;
         try {
             Class<?> example = getClassById(id);
+            printSimple(example);
             for (Method m : example.getDeclaredMethods()) {
                 if (m.getName().equals("Run")) {
                     RunMethod = m;
@@ -231,7 +238,7 @@ public class LeetCodeTool implements Runnable {
             }
             if (RunMethod != null) {
                 RunMethod.setAccessible(true);
-                RunMethod.invoke(example.newInstance(),null);
+                RunMethod.invoke(example.newInstance(), null);
                 return;
             } else {
                 System.err.println("该类不含有名为`Run`的方法，无法执行");
@@ -240,18 +247,17 @@ public class LeetCodeTool implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
      * 输出注解上的信息
-     * @param example 一个LeetCodes注解
+     * @param example 一个@LeetCodes注解
      */
     private void printMessage(LeetCodes example) {
         System.out.println("    题目ID: " + example.id());
         System.out.println("    完成状态: " + example.status().name());
         System.out.println("    难度级别: " + example.level().name());
-        System.out.println("    标签: " + Arrays.toString(example.tags()) + "\n\n");
+        System.out.println("    标签: " + Arrays.toString(example.tags()) + "\n");
 
         System.out.println("    创建时间:  " + example.createDate());
         System.out.println("    完成时间: " + example.finishTime());
@@ -261,6 +267,7 @@ public class LeetCodeTool implements Runnable {
 
     /**
      * 输出一个题目的简要信息
+     *
      * @param example 题目的代码所在的Class对象
      */
     private void printSimple(Class<?> example) {
@@ -270,30 +277,41 @@ public class LeetCodeTool implements Runnable {
         System.out.printf("#%-3d\t", id);
 
         String[] exampleName = example.getName().split("\\.");
-        System.out.println("::" + exampleName[exampleName.length-1]+"::");
+        System.out.println("::" + exampleName[exampleName.length - 1] + "::");
     }
 
     /**
-     * 根据id获取对应题目的class对象
-     * @param id
-     * @return 找到了则返回对应的Class对象，没找到则返回null
+     * 根据id找到本地对应的Class对象
+     * @param id 题目的id
+     * @return 对应的Class对象
+     * @throws Exception 当本地不存在这个id, 则抛出异常
      */
-    private Class<?> getClassById(int id) {
+    private Class<?> getClassById(int id) throws Exception {
 
         Class<?> result = null;
-        for (int i = 0; i<examples.size(); i++) {
+        for (int i = 0; i < examples.size(); i++) {
             LeetCodes a = examples.get(i).getAnnotation(LeetCodes.class);
             if (a.id() == id) {
                 result = examples.get(i);
                 break;
             }
         }
-
+        if (result == null)
+            throw new Exception("题号 `" + id + "` 在本地不存在");
         return result;
     }
 
     /**
+     * 重新加载Class类文件
+     */
+    private void reload() {
+        System.err.println("重新载入");
+        init();
+    }
+
+    /**
      * 把字符串转换成数字
+     *
      * @param str 被转换的字符串必须是正整数，不含其他符号
      * @return 转换后的整型数字
      */
@@ -311,12 +329,15 @@ public class LeetCodeTool implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
+        } finally {
+
         }
         return id;
     }
 
     /**
      * 使用帮助
+     *
      * @param cmd
      */
     private void help(String cmd) {
