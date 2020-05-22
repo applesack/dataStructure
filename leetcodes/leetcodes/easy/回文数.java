@@ -13,7 +13,9 @@ import java.util.LinkedList;
 
 @LeetCodes(
         id = 9,
+        level = LeetCodes.LEVEL.EASY,
         status = LeetCodes.Status.FINISHED,
+        tags = {"双端队列"},
         createDate = "2020/04/05"
 )
 public class 回文数 {

@@ -10,20 +10,32 @@ import org.junit.Test;
 
 @LeetCodes(
         id = 70,
-        status = LeetCodes.Status.UN_START,
-        createDate = "2020/04/08"
+        level = LeetCodes.LEVEL.EASY,
+        status = LeetCodes.Status.FINISHED,
+        tags = {"动态规划"},
+        createDate = "2020/05/22",
+        finishTime = "1h"
 )
 public class 爬楼梯 {
 
-    public static int test(int target) {
-        // 可以用
+    public static int climbStairs(int n) {
 
+        if (n <= 2) return n;
 
-        return target;
+        int[] dp = new int[n];
+        dp[0] = 1;
+        dp[1] = 2;
+
+        for (int i = 2; i<dp.length; i++) {
+            dp[i] = dp[i-1] + dp[i-2];
+        }
+        return dp[n-1];
     }
 
     @Test
     public void Run() {
-
+        int input = 3;
+        System.out.println("输入: " + input);
+        System.out.println("输出: " + climbStairs(input));
     }
 }

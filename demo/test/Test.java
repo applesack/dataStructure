@@ -4,6 +4,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Scanner;
 
@@ -14,9 +15,7 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        StringBuffer sb = new StringBuffer();
-        sb.append(scanner.nextLine());
-        System.out.println(sb.charAt(0));
+        String str = "1:2:3:4";
+        System.out.println(Arrays.toString(str.split("\\:")));
     }
 }

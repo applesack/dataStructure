@@ -1,5 +1,8 @@
 package leetcodes.util;
 
+import javafx.beans.binding.ListBinding;
+import org.junit.Test;
+
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -72,6 +75,9 @@ public class LeetCodeTool implements Runnable {
                     break;
                 case "test":
                     test(cmd_val);
+                    break;
+                case "tags":
+                    tags(cmd_val);
                     break;
                 case "reload":
                     reload();
@@ -250,6 +256,27 @@ public class LeetCodeTool implements Runnable {
     }
 
     /**
+     * 根据标签查找匹配的类对象
+     * @param cmd
+     */
+    private void tags(String cmd) {
+        String[] list = cmd.split(",|，");
+        if (list.length == 1 && list[0].equals("")) {
+            list("");
+            return;
+        }
+
+        List<Class<?>> matchExamples = getClassByTags(list);
+        if (matchExamples.size() == 0) {
+            System.err.println("没找到包含此标签的文件");
+        } else {
+            for (int i = 0; i<matchExamples.size(); i++) {
+                printSimple(matchExamples.get(i));
+            }
+        }
+    }
+
+    /**
      * 输出注解上的信息
      * @param example 一个@LeetCodes注解
      */
@@ -278,6 +305,46 @@ public class LeetCodeTool implements Runnable {
 
         String[] exampleName = example.getName().split("\\.");
         System.out.println("::" + exampleName[exampleName.length - 1] + "::");
+    }
+
+    /**
+     * 根据给定的标签查找对应的类对象
+     * @return
+     */
+    private List<Class<?>> getClassByTags(String[] tags) {
+        List<Class<?>> classList = new ArrayList<>();
+        String[] objTags;
+        for (int i = 0; i<examples.size(); i++) {
+            LeetCodes a = examples.get(i).getAnnotation(LeetCodes.class);
+            if (a.tags().length != 0) {
+                if (matchTags(a.tags(), tags))
+                    classList.add(examples.get(i));
+            }
+        }
+        return classList;
+    }
+    // 匹配两个标签数组，当outer的标签全部包含inner的标签返回true，否则返回false
+    private boolean matchTags(String[] outer, String[] inner) {
+
+        for (String in : inner) {
+            boolean result = false;
+            for (String out : outer) {
+                if (out.equals(in)) {
+                    result = true;
+                    break;
+                }
+            }
+            if (!result)
+                return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void Test() {
+        String[] outer = {"abd", "aec", "axc"};
+        String[] inner = {"abc"};
+        System.out.println(matchTags(outer, inner));
     }
 
     /**

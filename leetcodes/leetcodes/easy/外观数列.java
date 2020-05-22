@@ -10,16 +10,13 @@ import org.junit.Test;
 
 @LeetCodes(
         id = 38,
+        level = LeetCodes.LEVEL.EASY,
         status = LeetCodes.Status.FINISHED,
         createDate = "2020/04/17"
 )
 public class 外观数列 {
 
     private static String[] result;
-
-    public static void main(String[] args) {
-
-    }
 
     private static String test(int n) {
         StringBuffer str = new StringBuffer("1");

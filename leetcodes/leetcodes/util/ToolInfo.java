@@ -15,7 +15,8 @@ public class ToolInfo {
                     "   2.list 输出本地已经存在的题目编号\n" +
                     "   3.info 具体输出本地指定题目的信息\n" +
                     "   4.test 测试本地已经存在的题目代码\n" +
-                    "   5.reload 重新加载\n";
+                    "   5.tags 根据标签查找本地的题目信息\n" +
+                    "   6.reload 重新加载\n";
 
     // 返回命令列表
     public static String Help() {
@@ -38,6 +39,9 @@ public class ToolInfo {
                 break;
             case "reload":
                 System.out.println(reload);
+                break;
+            case "tags":
+                System.out.println(tags);
                 break;
             default:
                 System.err.println("暂时不支持该功能");
@@ -72,6 +76,13 @@ public class ToolInfo {
             "输入题目的编号即可运行对应的代码\n" +
             "例如 test 2 运行第二题的代码\n" +
             "但是可能因为指定的类里没有名为Run的方法而运行错误\n";
+
+    private static String tags =
+            "::tags-标签::\n" +
+            "根据标签查找符合条件的题目\n" +
+            "参数是标签,用逗号分隔(中英文的逗号都可以),\n" +
+            "例如 tags 数组,双指针\n" +
+            "当没有给出参数的时候会打印所以的题目\n";
 
     private static String reload =
             "::reload-重新加载::\n" +
