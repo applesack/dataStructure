@@ -14,8 +14,9 @@ import java.util.Scanner;
  */
 public class Test {
 
-    public static void main(String[] args) {
-        String str = "1:2:3:4";
-        System.out.println(Arrays.toString(str.split("\\:")));
+    public static void main(String[] args) {    
+        double a = 12_00;
+        double b = 1;
+        System.out.println(a+b);
     }
 }

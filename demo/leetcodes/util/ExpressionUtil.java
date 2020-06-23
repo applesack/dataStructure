@@ -87,12 +87,18 @@ public class ExpressionUtil {
                 } else if (item.equals("tan")) {             // tan运算
                     left = data_stack.pop();
                     data_stack.push(Math.tan(left));
+                } else if (item.equals("abs")) {             // 绝对值操作
+                    left = data_stack.pop();
+                    data_stack.push(Math.abs(left));
                 } else if (item.equals("log")) {             // log运算
                     left = data_stack.pop();
                     data_stack.push(Math.log10(left));
                 } else if (item.equals("ln")) {              // ln运算
                     left = data_stack.pop();
-                    data_stack.push(Math.log1p(left));
+                    data_stack.push(Math.log(left));
+                } else if (item.equals("√")) {               // 根号运算
+                    left = data_stack.pop();
+                    data_stack.push(Math.pow(left, 0.5));
                 }
             }
         }
@@ -147,12 +153,19 @@ public class ExpressionUtil {
      * @return
      */
     private static List<String> addOperator(List<String> infix_list) {
-        for (int i = 0; i<infix_list.size()-1; i++) {
+        for (int i = 0; i<infix_list.size(); i++) {
             // todo 在这里加一些判断，检查列表里是否有无法处理的字符格式
 
-            if (isNumber(infix_list.get(i)) && infix_list.get(i+1).equals("(") ||
-                    infix_list.get(i).equals(")") && infix_list.get(i+1).equals("(")) {
+            if ((i < infix_list.size()-1) && (isNumber(infix_list.get(i)) && infix_list.get(i+1).equals("(") ||
+                    infix_list.get(i).equals(")") && infix_list.get(i+1).equals("("))) {
                 infix_list.add(i+1, "*");
+            }
+
+            // 处理常量
+            if (infix_list.get(i).equals("pi")) {
+                infix_list.set(i, String.valueOf(Math.PI));
+            } else if (infix_list.get(i).equals("e")) {
+                infix_list.set(i, String.valueOf(Math.E));
             }
         }
         return infix_list;
@@ -209,7 +222,7 @@ public class ExpressionUtil {
      * @return 满足条件: 以数字或者加减号开头 中间可以有小数点  假如中间有小数点，小数点后面必须是数字并且必须以数字结尾
      */
     public static boolean isNumber(String str) {
-        return str.matches("^[-+]{0,1}[0-9]+$|^[-+]{0,1}[0-9]+[.]{1,1}[0-9]+$");
+        return str.matches("^[-+]{0,1}[0-9]+$|^[-+]{0,1}[0-9]+[.]{1,1}[0-9]+$|^[.]$");
     }
 
     /**
@@ -223,9 +236,8 @@ public class ExpressionUtil {
 
     @Test
     public void test() {
-//        System.out.println(isNumber("l"));
 
-        String expression = "12+(1)";
+        String expression = "1.2*3";
         System.out.println("表达式: " + expression);
         try {
             System.out.println("结果 " + doExpression(expression));
@@ -248,6 +260,7 @@ public class ExpressionUtil {
             OPERATOR_PRIORITY.put("*", 3);
             OPERATOR_PRIORITY.put("/", 3);
             OPERATOR_PRIORITY.put("^", 4);
+            OPERATOR_PRIORITY.put("√", 4);
             OPERATOR_PRIORITY.put("cos", 3);
             OPERATOR_PRIORITY.put("sin", 3);
             OPERATOR_PRIORITY.put("tan", 3);

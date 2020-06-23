@@ -54,6 +54,10 @@ public class AmountInWordsUtil {
         String left = doIntegerPart(number_ls[0]);
         String right = doDecimalPart(number_ls[1]);
 
+        if (left.equals("")) {
+            left = "零";
+        }
+
         return left + "圆 " + right;
     }
 
@@ -142,7 +146,7 @@ public class AmountInWordsUtil {
      */
     private static String doDecimalPart(String decimal) throws Exception {
         if (decimal.length() > 2)
-            throw new Exception("小数部分不能超过两位: " + decimal);
+            decimal = decimal.substring(0, 2);
 
         StringBuffer transfer = new StringBuffer();
         String temp;
@@ -166,7 +170,7 @@ public class AmountInWordsUtil {
 //            System.out.println(doIntegerPart("1200001"));
 //            System.out.println(doDigitIn1to4("1"));
 //            System.out.println(doIntegerPart("1200001020000001"));
-            String number = "100.12";
+            String number = "1.3";
             System.out.println("输出: " + number2words(number));
         } catch (Exception e) {
             e.printStackTrace();
