@@ -1,4 +1,4 @@
-package demo.数组类算法;
+package demo.数组类算法.初始定义;
 
 import org.junit.Test;
 
