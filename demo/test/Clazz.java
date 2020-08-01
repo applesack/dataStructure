@@ -16,11 +16,7 @@ public class Clazz {
 
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
 
-        Class<Clazz> clazz = Clazz.class;
-        Field field = clazz.getDeclaredField("arr");
-        field.setAccessible(true);
-        int[] narr = (int[]) field.get(null);
-        System.out.println(Arrays.toString(narr));
+        System.out.println(Number.class.isAssignableFrom(Integer.class));
 
 //        System.out.println(isAllRound(String.class, java.io.Serializable.class,
 //                                                                Comparable.class,

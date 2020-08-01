@@ -17,8 +17,7 @@ public class ShellSort移位法 {
     public static int[] shellSort(int[] arr) {
         /**
          * 对交换式做了一些改良，效率大大提高了
-         *
-         */
+         */ 
         int index, value;
         for (int step = arr.length/2; step>0; step /= 2) {
             for (int i = step; i<arr.length; i++) {
