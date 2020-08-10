@@ -1,6 +1,5 @@
 package leetcodes.util;
 
-import javafx.beans.binding.ListBinding;
 import org.junit.Test;
 
 import java.lang.reflect.Method;

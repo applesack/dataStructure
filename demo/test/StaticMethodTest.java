@@ -8,6 +8,7 @@ public class StaticMethodTest {
 
     private static void Func() {
         System.out.println("静态方法");
+
     }
 
     private void notStaticFunc() {

@@ -1,7 +1,6 @@
 package part2;
 
 import org.junit.Test;
-import sun.plugin.javascript.navig.Link;
 
 import java.util.LinkedList;
 import java.util.Queue;
