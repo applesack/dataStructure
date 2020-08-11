@@ -4,7 +4,10 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
+import java.io.*;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -13,14 +16,13 @@ import java.time.Instant;
  * @date : 2020年08月10日 16:22
  */
 public class ProxyUtil<T> implements MethodInterceptor, Runnable  {
+
     private T target;
 
     public ProxyUtil(Class<T> tClass) {
         try {
             this.target = tClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -49,14 +51,25 @@ public class ProxyUtil<T> implements MethodInterceptor, Runnable  {
     // 将方法执行信息显示并存入日志
     private Duration interval;
     private Method theMethod;
-    public void recordIntervalInfo() {
+    private static Path logPath = Paths.get("demo", "myImpl", "log", "sortLog.txt");
+    private void recordIntervalInfo() {
         StringBuffer timeInfo = new StringBuffer();
         timeInfo.append("method[");
-        timeInfo.append(theMethod.getName());
+        timeInfo.append(theMethod.getDeclaringClass().getSimpleName())
+                .append(".")
+                .append(theMethod.getName());
         timeInfo.append("] Run time ");
         timeInfo.append(interval.toMillis()).append("MS. ");
 
+        // 显示程序运行时间
         System.out.println(timeInfo.toString());
+
+        // 将信息存入日志
+        try (FileWriter writer = new FileWriter(logPath.toFile().getAbsolutePath(), true)) {
+            writer.write(timeInfo.append("\n").toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // 开启一条线程记录当前执行的时间

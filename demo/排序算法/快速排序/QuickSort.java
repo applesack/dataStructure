@@ -43,7 +43,7 @@ public class QuickSort {
                 l += 1;
             }
             // 在pivot右边找，当找到比pivot小的值，退出
-            while (arr[r] >= pivot) {
+            while (arr[r] > pivot) {
                 r -= 1;
             }
             // 如果 l>=r : 说明pivot左边都比pivot小，右边都比pivot大

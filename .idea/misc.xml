@@ -12,7 +12,7 @@
     </option>
   </component>
   <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/leetcodes/leetcodes/easy/合并两个有序链表.kt" />
+    <file url="file://$PROJECT_DIR$/leetcodes/zleetcodes/easy/合并两个有序链表.kt" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
