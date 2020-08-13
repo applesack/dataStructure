@@ -11,14 +11,6 @@ import java.util.Arrays;
  */
 public class ClazzUtil {
 
-    @Test
-    public void testFunc() {
-        int[] from = {1,2,3,4};
-        int[] desc = new int[from.length + 1];
-        System.arraycopy(from, 0, desc, 1, 4);
-        System.out.println(Arrays.toString(desc));
-    }
-
     @lombok.SneakyThrows
     public static <T> T getInstance(Class<T> clazz) {
         return getInstance(clazz, null);

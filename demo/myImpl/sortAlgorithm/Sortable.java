@@ -6,5 +6,5 @@ package myImpl.sortAlgorithm;
  */
 public interface Sortable {
 
-    int[] sort(int[] arr);
+    int[] sort(int[] arr) throws IllegalArgumentException;
 }

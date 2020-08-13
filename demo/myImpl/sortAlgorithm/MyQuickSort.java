@@ -15,7 +15,7 @@ public class MyQuickSort implements Sortable {
     @Test
     public void testFunc() {
         MyQuickSort qs = (MyQuickSort) new ProxyUtil(this.getClass()).getInstance();
-        int[] input = RandomUtil.getRandomArr(-100000, 2000000, 10000000);
+        int[] input = RandomUtil.getRandomArr(10000000, -100000, 2000000);
         qs.sort(input);
     }
 

@@ -10,9 +10,6 @@ import java.util.Calendar;
  */
 class UtilTest {
     public static void main(String[] args) {
-        System.out.println(ClazzUtil.getInstance(Student.class, 1, 2));
-        System.out.println(ClazzUtil.getInstance(Student.class, "1212", 12));
-        System.out.println(ClazzUtil.getInstance(Student.class));
     }
 
     private class Student {

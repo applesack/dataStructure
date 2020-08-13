@@ -20,7 +20,7 @@ public class RandomUtil {
      * @return 由随机数构成的数组
      */
     public static int[] getRandomArr(int len) {
-        return getRandomArr(DEFAULT_MIN, DEFAULT_MAX, len);
+        return getRandomArr(len, DEFAULT_MIN, DEFAULT_MAX);
     }
 
     /**
@@ -30,12 +30,29 @@ public class RandomUtil {
      * @param len 数组的长度
      * @return 有随机数构成的数组
      */
-    public static int[] getRandomArr(int min, int max, int len) {
+    public static int[] getRandomArr(int len, int min, int max) {
         int[] res_arr = new int[len];
         for (int i = 0; i<res_arr.length; i++) {
             res_arr[i] = getRandomInt(min, max);
         }
         return res_arr;
+    }
+
+    public static int[] getOrderlyArr(int len) {
+        return getOrderlyRandomArr(len, DEFAULT_MIN, DEFAULT_MAX);
+    }
+
+    /**
+     * 获取有序的随机数组
+     * @param len
+     * @param min
+     * @param max
+     * @return
+     */
+    public static int[] getOrderlyRandomArr(int len, int min, int max) {
+        int[] orderArray = getRandomArr(len, min, max);
+        Arrays.sort(orderArray);
+        return orderArray;
     }
 
     /**
