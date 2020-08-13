@@ -8,3 +8,8 @@ method[IntervalSort.sort] Run time 3MS.
 method[IntervalSort.sort] Run time 4MS. 
 method[IntervalSort.sort] Run time 10MS. 
 method[IntervalSort.sort] Run time 25MS. 
+method[MyShellSort.shellSort] Run time 31MS. 
+method[MyShellSort.sort] Run time 28214MS. 
+method[MyShellSort.shellSort] Run time 1753MS. 
+method[MyShellSort.shellSort] Run time 1817MS. 
+method[MyQuickSort.sort] Run time 195MS. 

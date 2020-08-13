@@ -14,9 +14,11 @@ public class MyShellSort implements Sortable {
 
     @Test
     public void testSortFunc() {
-        MyShellSort qs = (MyShellSort) new ProxyUtil(this.getClass()).getInstance();
-        int[] input = RandomUtil.getRandomArr(10000000, -100000, 2000000);
-        qs.sort(input);
+        MyShellSort ss = (MyShellSort) new ProxyUtil(MyShellSort.class).getInstance();
+        MyQuickSort qs = (MyQuickSort) new ProxyUtil(MyQuickSort.class).getInstance();
+        int[] input = RandomUtil.getRandomArr(8000000, -100000, 2000000);
+        ss.shellSort(input);  // 哈希
+        qs.sort(input);       // 快排
     }
 
     @Override
@@ -39,5 +41,21 @@ public class MyShellSort implements Sortable {
         return arr;
     }
 
+    public void shellSort(int []a){
+        for(int i=a.length/2;i>0;i /=2){
+            for(int j = i;j<a.length;j++){
+                int k =j;
+                int temp = a[j];
+                for(;k>=i && a[k-i] > temp; k -=i){
+                    a[k] = a[k-i];
+                }
+                if(j != i){
+                    // 小幅度优化
+                    a[k] = temp;
+                }
+
+            }
+        }
+    }
 
 }
