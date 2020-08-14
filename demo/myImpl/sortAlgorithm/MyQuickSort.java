@@ -1,6 +1,8 @@
 package myImpl.sortAlgorithm;
 
+import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
 import org.junit.Test;
+import util.AUtil;
 import util.ProxyUtil;
 import util.RandomUtil;
 
@@ -16,7 +18,7 @@ public class MyQuickSort implements Sortable {
     public void testFunc() {
         MyQuickSort qs = (MyQuickSort) new ProxyUtil(this.getClass()).getInstance();
         int[] input = RandomUtil.getRandomArr(8000000, -100000, 2000000);
-        qs.sort(input);
+        AUtil.Partition(input);
     }
 
     @Override
@@ -73,5 +75,23 @@ public class MyQuickSort implements Sortable {
             qSortCore(arr, l, right);
         }
         return arr;
+    }
+
+
+    // STOPSHIP: 2020/8/14
+    private int[] qSortSimplifyEdit(int[] arr) {
+        qSortSimplifyEditCore(arr, 0, arr.length - 1);
+        return arr;
+    }
+
+    private void qSortSimplifyEditCore(int[] arr, int left, int right) {
+        if (left >= right)
+            return;
+
+        int index = AUtil.Partition(arr, left, right);
+        if (index > left)
+            qSortSimplifyEditCore(arr, left, index - 1);
+        if (index < right)
+            qSortSimplifyEditCore(arr, index + 1, right);
     }
 }
