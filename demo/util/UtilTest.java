@@ -9,8 +9,6 @@ import java.util.Calendar;
  * @date : 2020年08月11日 0:04
  */
 class UtilTest {
-    public static void main(String[] args) {
-    }
 
     private class Student {
         public Student() {}

@@ -14,7 +14,12 @@ public class P63 {
         System.out.println(maxDiff(input));
     }
 
-    private int maxDiff(int[] nums) {
+    public static void main(String[] args) {
+        int[] input = {9,11,8,5,7,12,16,14};
+        System.out.println(maxDiff(input));
+    }
+
+    private static int maxDiff(int[] nums) {
         if (nums == null || nums.length <= 1)
             return -1;
         if (nums.length == 2)
