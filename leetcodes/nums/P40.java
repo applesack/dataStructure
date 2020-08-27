@@ -35,6 +35,7 @@ public class P40 {
     public void getFixNumbers(List<List<Integer>> res, int target, Deque<Integer> curPath,
                               int[] candidates, int[] paths) {
         if (target == 0) {
+            // 检查是否已经存在有相同的解
             ArrayList<Integer> answer = new ArrayList<>(curPath);
             answer.sort(Integer::compareTo);
             boolean isExist = true;
