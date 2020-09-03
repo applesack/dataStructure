@@ -1,4 +1,6 @@
-package nums;
+package nums.ds.util;
+
+import nums.ds.ListNode;
 
 /**
  * @author : flutterdash@qq.com

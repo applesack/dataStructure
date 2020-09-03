@@ -29,4 +29,5 @@ public class 删除排序数组中的重复项 {
         int count = removeDuplicates(sort_arr);
         System.out.println(Arrays.toString(sort_arr)+", "+count);
     }
+
 }
