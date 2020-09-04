@@ -17,7 +17,7 @@ public class ListNodeUtil {
         System.out.println(']');
     }
 
-    public static ListNode initNode(int[] data) {
+    public static ListNode initNode(int ... data) {
         ListNode root = null;
         if (data == null || data.length == 0)
             return root;
