@@ -1,7 +1,5 @@
 package demo.util;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 
 /**

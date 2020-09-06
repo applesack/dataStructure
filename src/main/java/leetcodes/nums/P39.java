@@ -1,9 +1,13 @@
 package leetcodes.nums;
 
-import org.junit.Test;
-import sun.plugin.javascript.navig.Link;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
-import java.util.*;
+import org.junit.Test;
 
 /**
  * @author : flutterdash@qq.com

@@ -1,10 +1,9 @@
 package demo.排序算法.希尔排序;
 
 import org.junit.Test;
+
 import demo.util.ProxyUtil;
 import demo.util.RandomUtil;
-
-import java.util.Arrays;
 
 /**
  * @author : flutterdash@qq.com

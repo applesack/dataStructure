@@ -43,4 +43,8 @@ public class P7 {
 
         return flag ? -resInt : resInt;
     }
+
+    public static void main(String[] args) {
+        
+    }
 }

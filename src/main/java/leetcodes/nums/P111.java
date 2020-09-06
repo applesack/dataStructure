@@ -14,4 +14,8 @@ public class P111 {
         return Math.min(minDepth(root.left) + 1, minDepth(root.right) + 1);
     }
 
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+
 }

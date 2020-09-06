@@ -1,5 +1,9 @@
 package offer.util.proxy;
 
+import java.lang.reflect.Method;
+import java.time.Duration;
+import java.time.Instant;
+
 /**
  * @author : flutterdash@qq.com
  * @date : 2020年08月10日 11:13
@@ -8,11 +12,6 @@ package offer.util.proxy;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
-import org.junit.Test;
-
-import java.lang.reflect.Method;
-import java.time.Duration;
-import java.time.Instant;
 
 /**
  * 记录方法执行的时间

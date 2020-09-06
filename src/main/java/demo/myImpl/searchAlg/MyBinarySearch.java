@@ -1,9 +1,8 @@
 package demo.myImpl.searchAlg;
 
 import org.junit.Test;
-import demo.util.RandomUtil;
 
-import java.util.Arrays;
+import demo.util.RandomUtil;
 
 /**
  * @author : flutterdash@qq.com
