@@ -9,12 +9,10 @@ public class P405 {
 
     public String toHex(int num) {
 
-        
+
         StringBuffer sb = new StringBuffer();
 
-        byte ov = num;
-
-        return ""
+        return "";
     }
     
     
