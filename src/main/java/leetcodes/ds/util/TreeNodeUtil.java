@@ -1,9 +1,8 @@
-package leetcodes.nums.ds.util;
+package leetcodes.ds.util;
 
-import leetcodes.nums.ds.TreeNode;
+import leetcodes.ds.TreeNode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

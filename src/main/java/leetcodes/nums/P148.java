@@ -1,7 +1,7 @@
 package leetcodes.nums;
 
-import leetcodes.nums.ds.ListNode;
-import leetcodes.nums.ds.util.ListNodeUtil;
+import leetcodes.ds.ListNode;
+import leetcodes.ds.util.ListNodeUtil;
 import org.junit.Test;
 
 /**

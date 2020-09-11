@@ -1,10 +1,7 @@
 package leetcodes.nums;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
-import leetcodes.nums.ds.TreeNode;
-import leetcodes.nums.ds.util.TreeNodeUtil;
+import leetcodes.ds.TreeNode;
+import leetcodes.ds.util.TreeNodeUtil;
 
 public class P404 {
     

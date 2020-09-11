@@ -1,6 +1,6 @@
 package leetcodes.nums;
 
-import leetcodes.nums.ds.TreeNode;
+import leetcodes.ds.TreeNode;
 
 /**
  * @author : flutterdash@qq.com

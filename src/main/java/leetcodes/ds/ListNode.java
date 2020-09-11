@@ -1,4 +1,4 @@
-package leetcodes.nums.ds;
+package leetcodes.ds;
 
 /**
  * @author : flutterdash@qq.com

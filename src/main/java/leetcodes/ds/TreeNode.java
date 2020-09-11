@@ -1,6 +1,4 @@
-package leetcodes.nums.ds;
-
-import lombok.Data;
+package leetcodes.ds;
 
 /**
  * @author : flutterdash@qq.com
