@@ -72,7 +72,7 @@ public class P12 {
             return true;
 
         // 上
-        if ((r - 1) >= 0 && path[r-1][c] == false) {
+        if ((r - 1) >= 0 && !path[r - 1][c]) {
             if (matrix[r-1][c] == target[hasMatch]) {
                 path[r-1][c] = true;
                 if (hasPath(matrix, r-1, c, target, hasMatch+1, path))
@@ -81,7 +81,7 @@ public class P12 {
         }
 
         // 右
-        if ((c + 1) < matrix[r].length && path[r][c+1] == false) {
+        if ((c + 1) < matrix[r].length && !path[r][c + 1]) {
             if (matrix[r][c+1] == target[hasMatch]) {
                 path[r][c+1] = true;
                 if (hasPath(matrix, r, c+1, target, hasMatch+1, path))
@@ -90,7 +90,7 @@ public class P12 {
         }
 
         // 下
-        if ((r + 1) < matrix.length && path[r+1][c] == false) {
+        if ((r + 1) < matrix.length && !path[r + 1][c]) {
             if (matrix[r+1][c] == target[hasMatch]) {
                 path[r+1][c] = true;
                 if (hasPath(matrix, r+1, c, target, hasMatch+1, path))
@@ -99,7 +99,7 @@ public class P12 {
         }
 
         // 左
-        if ((c - 1) >= 0 && path[r][c-1] == false) {
+        if ((c - 1) >= 0 && !path[r][c - 1]) {
             if (matrix[r][c-1] == target[hasMatch]) {
                 path[r][c-1] = true;
                 if (hasPath(matrix, r, c-1, target, hasMatch+1, path))

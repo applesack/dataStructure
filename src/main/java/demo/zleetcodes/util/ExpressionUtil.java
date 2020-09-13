@@ -19,6 +19,11 @@ public class ExpressionUtil {
      * 计算结果Double类型，当表达式不可解析抛出异常
      */
 
+    @Test
+    public void testFunc() throws Exception {
+        System.out.println(doExpression("2-1+2"));
+    }
+
     private static Double RESULT;
 
     // 计算表达式字符串
@@ -144,7 +149,7 @@ public class ExpressionUtil {
             result_stack.push(temp_stack.pop());
         }
 
-        return result_stack.stream().collect(Collectors.toList());
+        return new ArrayList<>(result_stack);
     }
 
     /**
