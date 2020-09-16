@@ -1,6 +1,7 @@
 package leetcodes.zleetcodes.easy;
 
 
+import leetcodes.ds.TreeNode;
 import leetcodes.zleetcodes.util.LeetCodes;
 import org.junit.Test;
 
@@ -27,15 +28,5 @@ public class 相同的树 {
     @Test
     public void Run() {
 
-    }
-
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode  right;
-
-        TreeNode(int x) {
-            val = x;
-        }
     }
 }
