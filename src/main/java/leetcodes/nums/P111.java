@@ -18,33 +18,16 @@ public class P111 {
         TreeNode root = TreeNodeUtil.initTree()
                 .setRoot(3)
                 .addLevel(9, 10)
-                .addLevel(null, null, 15, 7)
+                .addLevel(12, 11, null, null)
                 .build();
         System.out.println(minDepth(root));
     }
 
     public int minDepth(TreeNode root) {
-        if (root == null)
+        if (root == null) {
             return 0;
-        if (root.left == null && root.right == null)
-            return 1;
-
-        Deque<TreeNode> deque = new LinkedList<>();
-        deque.addLast(root);
-        int depth = 1;
-
-        while (!deque.isEmpty()) {
-            TreeNode tmp = deque.pollFirst();
-            if (tmp.left == null && tmp.right == null)
-                return depth;
-            if (tmp.left != null)
-                deque.addLast(tmp.left);
-            if (tmp.right != null)
-                deque.addLast(tmp.right);
-            depth++;
         }
-
-        return depth;
+        return 1+Math.min(minDepth(root.left), minDepth(root.right));
     }
 
 }

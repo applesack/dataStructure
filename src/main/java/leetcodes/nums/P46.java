@@ -1,6 +1,5 @@
 package leetcodes.nums;
 
-import com.sun.jmx.remote.internal.ArrayQueue;
 import org.junit.Test;
 
 import java.util.ArrayList;

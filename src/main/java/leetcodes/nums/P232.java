@@ -1,7 +1,6 @@
 package leetcodes.nums;
 
 import org.junit.Test;
-import sun.misc.Queue;
 
 import java.util.Stack;
 
