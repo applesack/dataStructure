@@ -1,0 +1,23 @@
+# 常用的函数式接口
+java.lang.Runable
+
+java.lang.Comparable
+
+java.lang.Comparator
+
+java.io.FileFilter
+
+# package : java.util.function
+java.util.function.Predicate<T>
+    : 接收参数对象T，返回一个boolean类型的结果
+java.util.function.Consumer<T>
+    : 接收参数对象T，不返回任何结果
+java.util.function.Function<R, T>
+    : 接收一个对象T，返回另一种对象R
+java.util.function.Supplier<T>
+    : 不接受参数，提供T对象的创建工厂
+java.util.function.UnaryOperator<T>
+    : 接收参数对象T，返回结果对象T
+java.util.function.BinaryOperator<T>
+    : 接收两个T对象，返回一个T类型对象结果
+
