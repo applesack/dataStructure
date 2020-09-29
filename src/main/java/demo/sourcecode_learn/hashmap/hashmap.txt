@@ -1,0 +1,24 @@
+HashMap
+使用数组+链表/红黑树的形式存储数据
+
+属性
+(p)loadFactor:float 装填因子，默认值为0.75
+(p)size:int 当前容器中存在的键值对个数
+(p)threshold:int 阈值，当size大于这个阈值会执行resize操作
+
+方法
+(m)put(K, V)
+(m)putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict)
+    局部变量tab存放类属性table的引用，n存放类属性table数组的长度，当数组为空则执行resize()方法，并更新局部变量tab和n
+    将Key的hash值映射到table的一个下标处，假如这个下标没有元素(null)，则将这个键值对生成Node直接存放在这个下标位置。
+    <else> table这个下标处不为空
+    局部变量Node<K,V> e; K k;
+        <if> 这个下标处不为空，但是这个下标指向的元素的Key属性和要存放的键值对的Key相同，更新e的引用
+        <if> 下标不为空，下标处的节点的实现是树，调用TreeNode.putTreeVal()更新节点
+        <if> 下标不为空，下标处的节点的实现是链表，遍历链表直到末尾，当在遍历的途中遇到和要插入的键值对相同的键，
+            则也更新e的引用，否则在链表末尾插入节点。
+    假如e不为空，则将要value更新给这个键值对。
+    更新容器中的长度信息，当size大于loadFactor * capacity，执行resize()方法
+
+
+
