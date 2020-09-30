@@ -1,0 +1,8 @@
+# Stream API
+
+Stream聚合操作
+
+
+API:intermediate中间/记录[无状态|有状态]
+
+API:terminal终结/结束操作[非短路|短路]

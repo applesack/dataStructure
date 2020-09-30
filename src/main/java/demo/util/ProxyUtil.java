@@ -1,5 +1,6 @@
 package demo.util;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -52,7 +53,7 @@ public class ProxyUtil<T> implements MethodInterceptor, Runnable  {
     // 将方法执行信息显示并存入日志
     private Duration interval;
     private Method theMethod;
-    private static Path logPath = Paths.get("demo", "myImpl", "log", "sortLog.txt");
+    private static File logPath = new File(ProxyUtil.class.getResource("").getPath());
     private void recordIntervalInfo() {
         StringBuffer timeInfo = new StringBuffer();
         timeInfo.append("method[");
@@ -66,11 +67,11 @@ public class ProxyUtil<T> implements MethodInterceptor, Runnable  {
         System.out.println(timeInfo.toString());
 
         // 将信息存入日志
-        try (FileWriter writer = new FileWriter(logPath.toFile().getAbsolutePath(), true)) {
-            writer.write(timeInfo.append("\n").toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try (FileWriter writer = new FileWriter(logPath.getAbsolutePath(), true)) {
+//            writer.write(timeInfo.append("\n").toString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     // 开启一条线程记录当前执行的时间
