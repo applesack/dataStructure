@@ -2,10 +2,7 @@ package leetcodes.nums.p201_400;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -18,29 +15,45 @@ public class P212 {
 
     @Test
     public void testFunc() {
-
+        char[][] board = {
+//                {'o', 'a', 'a', 'n'},
+//                {'e', 't', 'a', 'e'},
+//                {'i', 'h', 'k', 'r'},
+//                {'i', 'f', 'l', 'v'}
+                {'a', 'b'},
+                {'c', 'd'}
+        };
+        String[] words = {
+//                "oath", "pea", "rain", "eat"
+                "ab","cb","ad","bd","ac","ca","da","bc","db","adcb","dabc","abb","acb"
+        };
+        System.out.println(findWords(board, words));
     }
 
     public List<String> findWords(char[][] board, String[] words) {
-        List<String> rList = new ArrayList<>();
+        Set<String> rSet = new HashSet<>();
 
-        Map<Character, String> prefixMap =
+        Map<Character, Set<String>> prefixMap =
                 Arrays.stream(words).collect(
-                        Collectors.toMap(item -> item.charAt(0), Function.identity()));
+                        Collectors.groupingBy(str -> str.charAt(0), Collectors.toSet()));
 
         int row = board.length, column = board[0].length;
         boolean[][] tmp = new boolean[row][column];
         for (int r = 0; r<row; r++) {
             for (int c = 0; c<column; c++) {
-                String curStr = prefixMap.get(board[r][c]);
-                if (curStr != null) {
-                    if (canFindWordFromBoard(board, r, c, 0, curStr, tmp))
-                        rList.add(curStr);
+                Set<String> curSet = prefixMap.get(board[r][c]);
+                if (curSet != null) {
+                    for (String someone : curSet) {
+                        if (canFindWordFromBoard(board, r, c, 0, someone, tmp)) {
+                            rSet.add(someone);
+                            clear(tmp, row, column);
+                        }
+                    }
                 }
             }
         }
 
-        return rList;
+        return new ArrayList<>(rSet);
     }
 
     // (r, c)
@@ -48,14 +61,14 @@ public class P212 {
     private boolean canFindWordFromBoard(char[][] board, int r, int c, int curIdx,
                                          String target, boolean[][] path) {
         // 检查是否超出边界
-        if ((r < 0 || r > board.length) || (c < 0 || c > board[0].length))
+        if ((r < 0 || r > board.length - 1) || (c < 0 || c > board[0].length - 1))
             return false;
         if (board[r][c] == target.charAt(curIdx)) {
             if (!path[r][c]) {
                 path[r][c] = true;
                 curIdx++;
             } else return false;
-        }
+        } else return false;
         if (curIdx == target.length())
             return true;
 
@@ -66,6 +79,15 @@ public class P212 {
 
         path[r][c] = false;
         return false;
+    }
+
+    private void clear(boolean[][] path, int row, int column) {
+        for (int r = 0; r<row; r++) {
+            for (int c = 0; c<column; c++) {
+                if (path[r][c])
+                    path[r][c] = false;
+            }
+        }
     }
 
 }
