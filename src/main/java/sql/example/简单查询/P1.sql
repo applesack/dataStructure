@@ -13,4 +13,9 @@ WHERE `姓名` LIKE "%猴";
 SELECT * FROM student
 WHERE `姓名` LIKE "%猴%";
 
+select `学号`, avg(`成绩`)
+from score
+group by `学号`
+having avg(`成绩`) > 60;
+
 

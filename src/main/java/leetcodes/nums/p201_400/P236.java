@@ -34,8 +34,8 @@ public class P236 {
     private boolean dfs(TreeNode node, TreeNode p, TreeNode q) {
         if (node == null)
             return false;
-        boolean lSon = dfs(node.left, p, q);
-        boolean rSon = dfs(node.right, p, q);
+        boolean lSon = dfs(node.left, p, q);  // 左子树是否含有目标节点？
+        boolean rSon = dfs(node.right, p, q); // 右子数是否包含目标节点？
         /**
          * 条件：
          * (lSon && rSon): 假如左节点或者右节点都含有p和q, 那么当前节点就是答案的解。
@@ -45,7 +45,7 @@ public class P236 {
         if ((lSon && rSon) ||
                 (node.val == p.val || node.val == q.val) && (lSon || rSon))
             ans = node;
-        //
+        // 找到一个即算true
         return lSon || rSon || node.val == p.val || node.val == q.val;
     }
 
