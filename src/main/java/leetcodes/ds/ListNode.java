@@ -2,7 +2,7 @@ package leetcodes.ds;
 
 /**
  * @author : flutterdash@qq.com
- * @date : 2020年08月24日 18:05
+ * @since  : 2020年08月24日 18:05
  */
 public class ListNode {
 

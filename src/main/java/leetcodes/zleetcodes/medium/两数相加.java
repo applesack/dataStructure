@@ -1,5 +1,6 @@
 package leetcodes.zleetcodes.medium;
 
+import leetcodes.ds.ListNode;
 import leetcodes.zleetcodes.util.LeetCodes;
 import org.junit.Test;
 
@@ -113,12 +114,4 @@ public class 两数相加 {
         return node;
     }
 
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 }

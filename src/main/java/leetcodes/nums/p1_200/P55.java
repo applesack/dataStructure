@@ -12,9 +12,9 @@ public class P55 {
     public void testFunc() {
         int[] input =
 //                {2, 3, 1, 1, 4};
-//                {3, 2, 1, 0, 4};
+//                {3, 2, 2, 0, 4};
 //                {2, 0};
-                {2, 5, 0, 0, 0};
+                {4, 3, 2, 1, 0, 4};
         System.out.println(canJump(input));
     }
 
@@ -23,29 +23,26 @@ public class P55 {
         int target = nums.length - 1;
 
         int maxWeight, curWeight, curVal, maxStep;
-
-
-        while (true) {
+        while (curPos < target) {
             curVal = nums[curPos];
-            maxWeight = 0;
-            maxStep   = curPos;
-
-            if (curPos >= target)
-                break;
             if (curVal == 0)
                 return false;
+            int end = Math.min(curPos + curVal, target) - curPos;
 
-            for (int i = curPos; i<curVal; i++) {
-                curWeight = i + nums[i];
-                if (curWeight > maxWeight) {
+            maxWeight = Integer.MIN_VALUE;
+            maxStep = curPos + 1;
+            for (int i = 1; i<=end; i++) {
+                curWeight = nums[curPos + i] + i;
+                if (curWeight >= maxWeight) {
                     maxWeight = curWeight;
-                    maxStep   = i;
+                    maxStep = i;
                 }
             }
 
-            curPos += nums[maxStep];
+            curPos += maxStep;
+            if (curPos >= target)
+                return true;
         }
-
         return true;
     }
 }
