@@ -2,7 +2,6 @@ package leetcodes.nums.p1_200;
 
 import leetcodes.ds.ListNode;
 import leetcodes.ds.util.ListNodeUtil;
-import leetcodes.ds.util.TreeNodeUtil;
 import org.junit.Test;
 
 import java.util.Deque;
