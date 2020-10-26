@@ -4,19 +4,23 @@ import org.junit.Test;
 
 /**
  * @author : flutterdash@qq.com
- * @date : 2020年09月12日 19:06
+ * @since  : 2020年09月12日 19:06
  */
 public class P79 {
 
     @Test
     public void testFunc() {
         char[][] board = {
-                {'A', 'B', 'C', 'E'},
-                {'S', 'F', 'E', 'S'},
-                {'A', 'D', 'E', 'E'}
+//                {'A', 'B', 'C', 'E'},
+//                {'S', 'F', 'E', 'S'},
+//                {'A', 'D', 'E', 'E'}
+                {'a', 'a', 'a', 'a'},
+                {'a', 'a', 'a', 'a'},
+                {'a', 'a', 'a', 'a'},
+                {'a', 'a', 'a', 'b'}
         };
-
-        System.out.println(exist(board, "ABCESEEEFS"));
+        String word = "aaaaaaaaaaaaaaaa";
+        System.out.println(exist(board, word));
     }
 
     public boolean exist(char[][] board, String word) {
@@ -29,12 +33,12 @@ public class P79 {
         if (r * c < word.length())
             return false;
 
-        char[] c_word = word.toCharArray();
+        char[] target = word.toCharArray();
         boolean[][] path = new boolean[r][c];
         for (int i = 0; i<r; i++) {
             for (int j = 0; j<c; j++) {
-                if (board[i][j] == c_word[0]) {
-                    if (findPath(board, c_word, i, j, 1, path))
+                if (board[i][j] == target[0]) {
+                    if (findPath(board, target, i, j, 0, path))
                         return true;
                 }
             }
@@ -43,51 +47,26 @@ public class P79 {
         return false;
     }
 
-    private boolean findPath(char[][] board, char[] tPath,
+    // r, c : 上右下左
+    private static final int[][] DIRECTION = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    private boolean findPath(char[][] board, char[] target,
                              int r, int c,
-                             int curVal, boolean[][] path) {
-        if (curVal == tPath.length)
+                             int curPos, boolean[][] path) {
+        if (curPos == target.length)
             return true;
+        // 检查当前位置是否有效
+        if (!(r >= 0 && r < board.length && c >= 0 && c < board[0].length))
+            return false;
+        if (path[r][c] || board[r][c] != target[curPos])
+            return false;
 
-        boolean up, down, left, right;
-        up = down = left = right = false;
-
-        // 向上方查找
-        if (r - 1 >= 0 && !path[r - 1][c]) {
-            if (board[r - 1][c] == tPath[curVal]) {
-                path[r - 1][c] = true;
-                up = findPath(board, tPath, r - 1, c, curVal + 1, path);
-            }
+        path[r][c] = true;
+        for (int[] direct : DIRECTION) {
+            if (findPath(board, target, r + direct[0], c + direct[1], curPos + 1, path))
+                return true;
         }
+        path[r][c] = false;
 
-        // 向下方查找
-        if (r + 1 < board.length && !path[r + 1][c]) {
-            if (board[r + 1][c] == tPath[curVal]) {
-                path[r + 1][c] = true;
-                down = findPath(board, tPath, r + 1, c, curVal + 1, path);
-            }
-        }
-
-        // 向左方查找
-        if (c - 1 >= 0 && !path[r][c - 1]) {
-            if (board[r][c - 1] == tPath[curVal]) {
-                path[r][c - 1] = true;
-                left = findPath(board, tPath, r, c - 1, curVal + 1, path);
-            }
-        }
-
-        // 向右方查找
-        if (c + 1 < board[r].length && !path[r][c + 1]) {
-            if (board[r][c + 1] == tPath[curVal]) {
-                path[r][c + 1] = true;
-                right = findPath(board, tPath, r, c + 1, curVal + 1, path);
-            }
-        }
-
-        if (up || down || left || right)
-            return true;
-        else
-            path[r][c] = false;
         return false;
     }
 
