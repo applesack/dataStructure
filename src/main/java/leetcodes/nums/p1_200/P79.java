@@ -19,7 +19,7 @@ public class P79 {
                 {'a', 'a', 'a', 'a'},
                 {'a', 'a', 'a', 'b'}
         };
-        String word = "aaaaaaaaaaaaaaaa";
+        String word = "af";
         System.out.println(exist(board, word));
     }
 
