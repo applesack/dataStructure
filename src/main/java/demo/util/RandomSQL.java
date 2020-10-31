@@ -38,18 +38,26 @@ public class RandomSQL {
         /**
          * 使用示例
          */
+
+        // 使用自定义的生成器
+        Generator generator = (column, sb, rand) -> {
+            int num = rand.nextInt();
+            sb.append(num % 2 == 0 ? '男' : '女');
+        };
+
         // 输入表名(必填)
         new RandomSQL.Builder("student_info")
                 // 插入主键，选择属性值
-                .addColumn("id", Type.DEFAULT, 4, 0, false, true)
+                .addColumn("id", Type.DEFAULT, 4, 0, false, true, null)
                 .addColumn("sid", Type.INTEGER, 4)
                 .addColumn("name", Type.STRING, 3)
-                .addColumn("sex", Type.STRING, 1)
+                // 这个字段使用自定义的生成器来生成随机数值
+                .addColumn("sex", Type.STRING, generator)
                 .addColumn("birthday", Type.DATE)
                 // 选择要生成多少条记录
                 .size(12)
-                // 选择输出结果的方式，参数可以是一个代表文件的字符串，选择在桌面生成或者在控制台输出可以不用参数(null)
-                .write(Location.DESKTOP, null)
+                // 选择输出结果的方式，参数可以是一个代表文件位置的字符串，选择在桌面生成或者在控制台输出可以不用参数(null)
+                .write(Location.CONSOLE, null)
                 // 得到结果
                 .run();
     }
@@ -159,8 +167,12 @@ public class RandomSQL {
     // 生成随机数字
     public static String randInteger(Column column) {
         sb.setLength(0);
-        for (int i = 0; i<column.size; i++) {
-            sb.append(random.nextInt(10));
+        if (column.generator != null) {
+            column.generator.genRandomValue(column, sb, random);
+        } else {
+            for (int i = 0; i<column.size; i++) {
+                sb.append(random.nextInt(10));
+            }
         }
         return sb.toString();
     }
@@ -168,11 +180,15 @@ public class RandomSQL {
     // 生成随机字符串
     public static String randString(Column column) {
         sb.setLength(0);
-        sb.append("\"");
-        for (int i = 0; i<column.size; i++) {
-            char cur = (char) ('a' + random.nextInt(26));
-            sb.append(cur);
+        if (column.generator != null) {
+            column.generator.genRandomValue(column, sb, random);
+        } else {
+            for (int i = 0; i<column.size; i++) {
+                char cur = (char) ('a' + random.nextInt(26));
+                sb.append(cur);
+            }
         }
+        sb.insert(0, "\"");
         sb.append("\"");
         return sb.toString();
     }
@@ -185,29 +201,44 @@ public class RandomSQL {
     // 生成随机双精度浮点
     public static String randDouble(Column column) {
         sb.setLength(0);
-        int dLen = column.decimal;
-        int iLen = column.size - (dLen == 0 ? 0 : dLen +  1);
-        for (int i = 0; i<iLen; i++) {
-            sb.append(1 + random.nextInt(8));
-        }
-        if (dLen != 0)
-            sb.append('.');
-        for (int i = 0; i<dLen; i++) {
-            sb.append(random.nextInt(9));
+        if (column.generator != null) {
+            column.generator.genRandomValue(column, sb, random);
+        } else {
+            int dLen = column.decimal;
+            int iLen = column.size - (dLen == 0 ? 0 : dLen +  1);
+            for (int i = 0; i<iLen; i++) {
+                sb.append(1 + random.nextInt(8));
+            }
+            if (dLen != 0)
+                sb.append('.');
+            for (int i = 0; i<dLen; i++) {
+                sb.append(random.nextInt(9));
+            }
         }
         return sb.toString();
     }
 
     // 生成随机日期
     public static String randDate(Column column) {
-        String year, month, day;
-        year = String.valueOf(1985 + random.nextInt(40));
-        month = String.valueOf(1 + random.nextInt(12));
-        day = String.valueOf(1 + random.nextInt(30));
-        return String.join("-", year, month, day);
+        sb.setLength(0);
+        if (column.generator != null) {
+            column.generator.genRandomValue(column, sb, random);
+            return sb.toString();
+        } else {
+            String year, month, day;
+            year = String.valueOf(1985 + random.nextInt(40));
+            month = String.valueOf(1 + random.nextInt(12));
+            day = String.valueOf(1 + random.nextInt(30));
+            return String.join("-", year, month, day);
+        }
     }
 
     public static String randDefault(Column column) {
+        sb.setLength(0);
+        if (column.generator != null) {
+            column.generator.genRandomValue(column, sb, random);
+            return sb.toString();
+        }
         return "DEFAULT";
     }
 
@@ -267,17 +298,23 @@ public class RandomSQL {
             record = new ArrayList<>(4);
         }
 
+        // 使用自定义的生成器来生成数值
+        public Builder addColumn(String columnName, Type columnType, Generator generator) {
+            return addColumn(columnName, columnType, 0, 0, false, false, generator);
+        }
+
         public Builder addColumn(String columnName, Type columnType) {
-            return addColumn(columnName, columnType, 6, 0, false, false);
+            return addColumn(columnName, columnType, 6, 0, false, false, null);
         }
 
         public Builder addColumn(String columnName, Type columnType, int size) {
-            return addColumn(columnName, columnType, size, 0, false, false);
+            return addColumn(columnName, columnType, size, 0, false, false, null);
         }
 
         public Builder addColumn(String columnName, Type columnType,
                                  int size, int decimal,
-                                 boolean nullable, boolean primaryKey) {
+                                 boolean nullable, boolean primaryKey,
+                                 Generator generator) {
             if (primaryKey) {
                 if (hasPrimaryKey) {
                     System.out.println(ConsoleColor.RED + "该表已经存在主键, 应用在字段{`" + columnName + "`}的主键将不被生效.");
@@ -286,7 +323,7 @@ public class RandomSQL {
                     hasPrimaryKey = true;
             }
 
-            record.add(new Column(columnName, columnType, size, decimal, nullable, primaryKey));
+            record.add(new Column(columnName, columnType, size, decimal, nullable, primaryKey, generator));
 
             return this;
         }
@@ -323,28 +360,49 @@ public class RandomSQL {
      */
     private static class Column {
 
-        public final String name;
-        public final Type type;
-        public final int size;
-        public final int decimal;
-        public final boolean nullable;
-        public final boolean isPrimaryKey;
+        public final String name;           // 字段名
+        public final Type type;             // 字段类型
+        public final int size;              // 长度
+        public final int decimal;           // 小数点位数
+        public final boolean nullable;      // 是否可以为空
+        public final boolean isPrimaryKey;  // 是否是主键
+        public final Generator generator;   // 是否使用用自定义的生成器来生成数值
 
-        public Column(String name, Type type, int size, int decimal, boolean nullable, boolean isPrimaryKey) {
+        public Column(String name, Type type, int size, int decimal, boolean nullable, boolean isPrimaryKey, Generator gen) {
             this.name = name;
             this.type = type;
             this.size = size;
             this.decimal = decimal;
             this.nullable = nullable;
             this.isPrimaryKey = isPrimaryKey;
+            this.generator = gen;
         }
-
     }
 
     @FunctionalInterface
     public interface Writeable {
 
+        /**
+         * 输出sql语句的方式
+         * 参数sqlLine是一个完整的sql插入语句，但是为了保证可读性，一行只包含一条记录
+         * @param sqlLines ig
+         */
         void write(List<String> sqlLines);
+
+    }
+
+    @FunctionalInterface
+    public interface Generator {
+
+        /**
+         * 这个方法不需要返回任何数据，只需要把产生的随机数值以字符串的形式存放在StringBuilder中即可，
+         * 系统会在某个节点将StringBuilder和Random对象注入，可供使用。
+         * 在调用方法之后系统会读取StringBuilder中的数据。
+         * @param column 字段信息
+         * @param sb 缓存字符串, 一般情况下，调用此方法之前，缓存都已清空，所以可以不用sb.setLength(0)操作。
+         * @param random 随机函数
+         */
+        void genRandomValue(Column column, StringBuilder sb, Random random);
 
     }
 }

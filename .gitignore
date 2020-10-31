@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+"src/main/java/demo/\350\264\252\345\251\252\347\256\227\346\263\225/"
+src/main/java/leetcodes/zleetcodes/hard/
+src/main/java/test/proxy/test/
+src/test/
