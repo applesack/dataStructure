@@ -19,14 +19,4 @@ public class Case0 {
 
     }
 
-    @Test
-    public void test1() {
-        Scanner scanner = new Scanner(System.in);
-        int a = scanner.nextInt();
-
-        int b = a;
-
-        a = 12;
-    }
-
 }
