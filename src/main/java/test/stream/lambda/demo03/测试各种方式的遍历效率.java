@@ -14,7 +14,7 @@ import java.util.Random;
 public class 测试各种方式的遍历效率 {
 
     public static void main(String[] args) {
-        测试各种方式的遍历效率 instance = new ProxyUtil<>(测试各种方式的遍历效率.class).getInstance();
+        测试各种方式的遍历效率 instance = (测试各种方式的遍历效率) new ProxyUtil(测试各种方式的遍历效率.class).getInstance();
 
         Random ran = new Random();
         List<Integer> integerList = new ArrayList<>();

@@ -1,15 +1,15 @@
-package leetcodes.zleetcodes.util;
+package demo.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.jar.JarEntry;
@@ -17,36 +17,34 @@ import java.util.jar.JarFile;
 
 /**
  * @author : flutterdash@qq.com
- * @date : 2020年05月18日 20:34
+ * @since  : 2020年05月18日 20:34
  */
-public class ClassTool {
+@Slf4j
+public class ClassLoaderUtil {
 
     @Test
-    public void RunThis() throws IOException {
+    public void RunThis() {
         File f = new File(this.getClass().getResource("").getPath());
         String parentDir = f.getParent(); // 父文件夹路径
         System.out.println(parentDir);
-        Set<Class<?>> set = getClasses("leetcodes");
-        Iterator<Class<?>> iterator = set.iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next().getName());
+        Set<Class<?>> set = getClasses("demo");
+        for (Class<?> aClass : set) {
+            System.out.println(aClass.getName());
         }
     }
 
     public static Set<Class<?>> getClasses(String pack) {
 
         // 第一个class类的集合
-        Set<Class<?>> classes = new LinkedHashSet<Class<?>>();
-        // 是否循环迭代
-        boolean recursive = true;
+        Set<Class<?>> classes = new LinkedHashSet<>();
         // 获取包的名字 并进行替换
         String packageName = pack;
         String packageDirName = packageName.replace('.', '/');
         // 定义一个枚举的集合 并进行循环来处理这个目录下的things
         Enumeration<URL> dirs;
         try {
-            dirs = Thread.currentThread().getContextClassLoader().getResources(
-                    packageDirName);
+            dirs = Thread.currentThread().getContextClassLoader()
+                    .getResources(packageDirName);
             // 循环迭代下去
             while (dirs.hasMoreElements()) {
                 // 获取下一个元素
@@ -55,16 +53,16 @@ public class ClassTool {
                 String protocol = url.getProtocol();
                 // 如果是以文件的形式保存在服务器上
                 if ("file".equals(protocol)) {
-                    System.err.println("file类型的扫描");
+                    log.trace("file类型的扫描");
                     // 获取包的物理路径
-                    String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
+                    String filePath = URLDecoder.decode(url.getFile(), StandardCharsets.UTF_8);
                     // 以文件的方式扫描整个包下的文件 并添加到集合中
                     findAndAddClassesInPackageByFile(packageName, filePath,
-                            recursive, classes);
+                            true, classes);
                 } else if ("jar".equals(protocol)) {
                     // 如果是jar包文件
                     // 定义一个JarFile
-                    System.err.println("jar类型的扫描");
+                    log.trace("jar类型的扫描");
                     JarFile jar;
                     try {
                         // 获取jar
@@ -92,7 +90,7 @@ public class ClassTool {
                                             .replace('/', '.');
                                 }
                                 // 如果可以迭代下去 并且是一个包
-                                if ((idx != -1) || recursive) {
+                                if ((idx != -1)) {
                                     // 如果是一个.class文件 而且不是目录
                                     if (name.endsWith(".class")
                                             && !entry.isDirectory()) {
@@ -137,15 +135,11 @@ public class ClassTool {
             return;
         }
         // 如果存在 就获取包下的所有文件 包括目录
-        File[] dirfiles = dir.listFiles(new FileFilter() {
-            // 自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
-            public boolean accept(File file) {
-                return (recursive && file.isDirectory())
-                        || (file.getName().endsWith(".class"));
-            }
-        });
+        // 自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
+        File[] dirFiles = dir.listFiles(file -> (recursive && file.isDirectory())
+                || (file.getName().endsWith(".class")));
         // 循环所有文件
-        for (File file : dirfiles) {
+        for (File file : dirFiles) {
             // 如果是目录 则继续扫描
             if (file.isDirectory()) {
                 findAndAddClassesInPackageByFile(packageName + "."

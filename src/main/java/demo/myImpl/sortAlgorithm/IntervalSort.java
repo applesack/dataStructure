@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 /**
  * @author : flutterdash@qq.com
- * @date : 2020年08月12日 14:40
+ * @since : 2020年08月12日 14:40
  */
 public class IntervalSort implements Sortable {
 
