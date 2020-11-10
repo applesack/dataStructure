@@ -1,6 +1,6 @@
 package leetcodes.nums.p201_400;
 
-import leetcodes.ds.ListNode;
+import leetcodes.adt.ListNode;
 
 /**
  * @author : flutterdash@qq.com

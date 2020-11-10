@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @author : flutterdash@qq.com
- * @date : 2020年08月10日 16:26
+ * @since : 2020年08月10日 16:26
  */
 public class RandomUtil {
 
@@ -42,10 +42,10 @@ public class RandomUtil {
 
     /**
      * 获取有序的随机数组
-     * @param len
-     * @param min
-     * @param max
-     * @return
+     * @param len 数组长度
+     * @param min 数组元素的最小值
+     * @param max  数组元素的最大值
+     * @return 有序的数组
      */
     public static int[] getOrderlyRandomArr(int len, int min, int max) {
         int[] orderArray = getRandomArr(len, min, max);
@@ -57,7 +57,7 @@ public class RandomUtil {
      * 获取一个随机数
      * @param min 生成随机数的最小值
      * @param max 生成随机数的最大值
-     * @return
+     * @return 返回在区间中的一个随机数
      */
     public static int getRandomInt(int min, int max) {
         return (int) (Math.random() * (max - min) + min);

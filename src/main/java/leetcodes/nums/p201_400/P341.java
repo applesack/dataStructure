@@ -1,7 +1,7 @@
 package leetcodes.nums.p201_400;
 
-import leetcodes.ds.NestedInteger;
-import static leetcodes.ds.util.NestedIntegerUtil.*;
+import leetcodes.adt.NestedInteger;
+import static leetcodes.adt.util.NestedIntegerUtil.*;
 import org.junit.Test;
 
 import java.util.*;

@@ -10,6 +10,10 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
+ * 代理工具
+ * 使用代理工具生成的对象，在方法执行前和执行后会调用指定的方法，
+ * 默认的行为是给方法计时，记录方法的执行时间
+ *
  * @author : flutterdash@qq.com
  * @since : 2020年08月10日 16:22
  */

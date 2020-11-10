@@ -1,7 +1,7 @@
 package leetcodes.nums.p1_200;
 
-import leetcodes.ds.ListNode;
-import leetcodes.ds.util.ListNodeUtil;
+import leetcodes.adt.ListNode;
+import leetcodes.adt.util.ListNodeUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;

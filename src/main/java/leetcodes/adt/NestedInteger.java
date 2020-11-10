@@ -1,4 +1,4 @@
-package leetcodes.ds;
+package leetcodes.adt;
 
 import java.util.List;
 

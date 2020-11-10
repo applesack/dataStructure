@@ -6,6 +6,8 @@ import java.lang.reflect.Field;
 import java.util.Map;
 
 /**
+ * 属性解析器，提供解析字符串中特定占位符的工具
+ *
  * @author : flutterdash@qq.com
  * @since : 2020年11月05日 16:28
  */

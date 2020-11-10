@@ -1,7 +1,7 @@
 package leetcodes.nums.p401_600;
 
-import leetcodes.ds.TreeNode;
-import leetcodes.ds.util.TreeNodeUtil;
+import leetcodes.adt.TreeNode;
+import leetcodes.adt.util.TreeNodeUtil;
 
 public class P404 {
     

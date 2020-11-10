@@ -1,7 +1,7 @@
 package leetcodes.nums.p601_800;
 
-import leetcodes.ds.TreeNode;
-import leetcodes.ds.util.TreeNodeUtil;
+import leetcodes.adt.TreeNode;
+import leetcodes.adt.util.TreeNodeUtil;
 import org.junit.Test;
 
 /**

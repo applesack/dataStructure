@@ -1,7 +1,7 @@
 package leetcodes.nums.p1_200;
 
-import leetcodes.ds.ListNode;
-import leetcodes.ds.util.ListNodeUtil;
+import leetcodes.adt.ListNode;
+import leetcodes.adt.util.ListNodeUtil;
 import org.junit.Test;
 
 /**
@@ -12,8 +12,8 @@ public class P21 {
 
     @Test
     public void testFunc() {
-        ListNode l1 = ListNodeUtil.initNode(new int[]{1,2,4});
-        ListNode l2 = ListNodeUtil.initNode(new int[]{1,3,4});
+        ListNode l1 = ListNodeUtil.initNode(1,2,4);
+        ListNode l2 = ListNodeUtil.initNode(1,3,4);
         ListNode root = mergeTwoLists(l1, l2);
         ListNodeUtil.printListNode(root);
     }

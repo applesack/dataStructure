@@ -35,3 +35,8 @@ build/
 src/main/java/leetcodes/zleetcodes/hard/
 src/main/java/test/proxy/test/
 src/test/
+
+### files ###
+**/*.classpath
+**/*.factorypath
+**/*.project

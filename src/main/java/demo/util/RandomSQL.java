@@ -64,7 +64,7 @@ public class RandomSQL {
 
     /**
      * 启动
-     * @param builder 构造者模式
+     * @param builder 构造者
      */
     private static void run(Builder builder) {
         List<String> sqlLines = new LinkedList<>();
@@ -400,7 +400,7 @@ public class RandomSQL {
          * 在调用方法之后系统会读取StringBuilder中的数据。
          * @param column 字段信息
          * @param sb 缓存字符串, 一般情况下，调用此方法之前，缓存都已清空，所以可以不用sb.setLength(0)操作。
-         * @param random 随机函数
+         * @param random 随机对象
          */
         void genRandomValue(Column column, StringBuilder sb, Random random);
 

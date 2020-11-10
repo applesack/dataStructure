@@ -1,27 +1,27 @@
 package demo.util;
 
-import org.junit.Test;
-
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
 /**
+ * 处理class对象的一些工具
+ *
  * @author : flutterdash@qq.com
- * @date : 2020年08月10日 20:17
+ * @since : 2020年08月10日 20:17
  */
 public class ClazzUtil {
 
     @lombok.SneakyThrows
     public static <T> T getInstance(Class<T> clazz) {
-        return getInstance(clazz, null);
+        return getInstance(clazz, new Object[0]);
     }
 
     /**
      * 根据参数生成类的实例，暂时不支持静态内部类
-     * @param clazz
-     * @param args
-     * @param <T>
-     * @return
+     * @param clazz 对象的class类型
+     * @param args 实例化类需要的参数
+     * @param <T> 对象的类型
+     * @return 实例出的对象
      */
     @lombok.SneakyThrows
     public static <T> T getInstance(Class<T> clazz, Object ... args) {
@@ -43,13 +43,15 @@ public class ClazzUtil {
                 return clazz.newInstance();
         }
 
-        // 获取参数的实际类型
-        for (int i = 0; i<args.length; i++) {
-            // 是包装类，拆箱
-            if (args[i].getClass().getSuperclass().equals(Number.class)) {
-                argTypeList[i] = unboxing(args[i].getClass());
-            } else {
-                argTypeList[i] = args[i].getClass();
+        if (argTypeList != null) {
+            // 获取参数的实际类型
+            for (int i = 0; i<argTypeList.length; i++) {
+                // 是包装类，拆箱
+                if (args[i].getClass().getSuperclass().equals(Number.class)) {
+                    argTypeList[i] = unboxing(args[i].getClass());
+                } else {
+                    argTypeList[i] = args[i].getClass();
+                }
             }
         }
 
@@ -64,9 +66,7 @@ public class ClazzUtil {
             // 生成参数
             parameters = new Object[args.length + 1];
             parameters[0] = getInstance(outerClazz);
-            for (int i = 1; i<parameters.length; i++) {
-                parameters[i] = args[i-1];
-            }
+            System.arraycopy(args, 0, parameters, 1, parameters.length - 1);
         } else {
             parameters = args;
         }
@@ -87,8 +87,8 @@ public class ClazzUtil {
                             .map(Class::getSimpleName)
                             .toArray(String[]::new))
             );
-        } catch (Exception ignored) {
-            ignored.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return instance;
@@ -97,7 +97,7 @@ public class ClazzUtil {
     /**
      * 将包装类型拆箱成基础类型
      * @param clazz 包装类
-     * @return
+     * @return 解包装
      */
     private static Class<?> unboxing(Class<?> clazz) {
         String className = clazz.getSimpleName();

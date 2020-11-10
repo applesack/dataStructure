@@ -1,6 +1,9 @@
 package demo.util;
 
 /**
+ * 与SQL数据表的字段对应，
+ * 可以增加一些其他特殊的字段类型，但需要在特定的地方给出实现
+ *
  * @author : flutterdash@qq.com
  * @since : 2020年10月29日 19:06
  */

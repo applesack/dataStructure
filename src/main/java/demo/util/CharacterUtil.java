@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.io.UnsupportedEncodingException;
 
 /**
+ * 字符工具
+ *
  * @author : flutterdash@qq.com
  * @since  : 2020年08月21日 10:52
  */
@@ -18,7 +20,8 @@ public class CharacterUtil {
         System.out.println(gbk);
     }
 
-    public static int getChineseCharacters(String str) {
+    // 获取字符串中中文字符的个数
+    public static int getChineseCharacters(CharSequence str) {
         int count = 0;
         for (int i = 0; i<str.length(); i++) {
             int unicode = str.charAt(i);

@@ -1,6 +1,6 @@
-package leetcodes.ds.util;
+package leetcodes.adt.util;
 
-import leetcodes.ds.NestedInteger;
+import leetcodes.adt.NestedInteger;
 
 import java.util.ArrayList;
 import java.util.List;

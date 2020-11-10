@@ -1,6 +1,6 @@
-package leetcodes.ds.util;
+package leetcodes.adt.util;
 
-import leetcodes.ds.ListNode;
+import leetcodes.adt.ListNode;
 
 /**
  * @author : flutterdash@qq.com
