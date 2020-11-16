@@ -1,4 +1,4 @@
-package demo.myImpl.dataStructrue.graph;
+package demo.adt.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,33 +1,31 @@
-package demo.myImpl.dataStructrue.tree;
-
-/**
- * @author : flutterdash@qq.com
- * @date : 2020年05月01日 21:31
- */
+package demo.adt.tree;
 
 import java.nio.BufferUnderflowException;
 
 /**
- * 二叉查找树
+ * @author : flutterdash@qq.com
+ * @date : 2020年05月02日 21:27
+ */
+
+/**
+ * 平衡二叉树
  * @param <AnyType>
  */
-public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
+public class AVLTree<AnyType extends Comparable<? super AnyType>> {
 
     private BinaryNode<AnyType> root;
     private int size = 0;
 
-    public BinarySearchTree() {
+    public AVLTree() {
         root = null;
     }
 
+    // 置空当前树
     public void makeEmpty() {
         root = null;
     }
     public boolean isEmpty() {
         return root==null;
-    }
-    public BinaryNode<AnyType> getRoot() {
-        return root;
     }
 
     public boolean contains(AnyType x) {
@@ -41,9 +39,38 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         if (isEmpty()) throw new BufferUnderflowException();
         return findMax(root).element;
     }
+    public BinaryNode<AnyType> getRoot() {
+        return root;
+    }
 
     public void insert(AnyType x) {
         root = insert(x, root);
+
+        // 在插入完成后判断是否应该旋转树, sub > 1:右子树大于左子树，sub < -1:右子树小于左子树
+        int sub = (root.rightHeight() - root.leftHeight());
+        if (sub > 1) { // 执行左旋转
+            // 如果它的右子树的 左子树 大于 它的右子树
+            if (root.right != null && root.right.leftHeight() > root.right.rightHeight()) {
+                // 先对当前节点的右子树进行 右旋转
+                root.right.rightRotate();
+                // 再对当前节点进行左旋转
+                root.leftHeight();
+            } else {
+                // 直接左旋转即可
+                root.leftRotate();
+            }
+        } else if (sub < -1) { // 执行右旋转
+            // 如果它的左子树的 右子树 大于 它的左子树
+            if (root.left != null && root.left.rightHeight() > root.left.leftHeight()) {
+                // 先对当前节点的左子树 进行左旋转
+                root.left.leftRotate();
+                // 再对当前节点进行右旋转
+                root.rightHeight();
+            } else {
+                // 直接右旋转即可
+                root.rightRotate();
+            }
+        }
     }
     public void remove(AnyType x) {
         root = remove(x, root);
@@ -173,6 +200,34 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
             return Math.max(
                     (left == null) ? 0 : left.height(),
                     (right == null) ? 0 : right.height()) + 1;
+        }
+
+        /**
+         * 左旋转
+         * 1. 创建新节点，新节点的值是当前跟节点的值
+         * 2. 把新节点的左子树 设置为 当前节点的左子树
+         * 3. 把新节点的右子树 设置为 当前节点的右子树 的左子树
+         * 4. 把当前节点的值 替换成 右子节点的值
+         * 5. 把当前节点的右子树 换成 右子树的右子树
+         * 6. 把当前节点的左子树 设置为新节点
+         */
+        private void leftRotate() {
+            BinaryNode newNode = new BinaryNode<>(element); // 1
+            newNode.left = this.left; // 2
+            newNode.right = this.right.left; // 3
+            this.element = this.right.element; // 4
+            this.right = this.right.right; // 5
+            this.left = newNode; // 6
+        }
+
+        // 右旋转
+        public void rightRotate() {
+            BinaryNode newNode = new BinaryNode(element);
+            newNode.right = this.right;
+            newNode.left = this.left.right;
+            this.element = this.left.element;
+            this.left = this.left.left;
+            this.right = newNode;
         }
 
         AnyType element;

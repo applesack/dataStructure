@@ -1,4 +1,4 @@
-package demo.util;
+package demo.component;
 
 /**
  * 与SQL数据表的字段对应，

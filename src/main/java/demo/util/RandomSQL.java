@@ -1,5 +1,8 @@
 package demo.util;
 
+import demo.component.ConsoleColor;
+import demo.component.Location;
+import demo.component.Type;
 import org.junit.Test;
 
 import javax.swing.filechooser.FileSystemView;

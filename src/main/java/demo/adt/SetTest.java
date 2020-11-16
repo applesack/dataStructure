@@ -1,4 +1,4 @@
-package demo.myImpl.dataStructrue;
+package demo.adt;
 
 import org.junit.Test;
 

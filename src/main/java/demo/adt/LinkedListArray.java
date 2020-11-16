@@ -1,6 +1,5 @@
-package demo.myImpl.dataStructrue;
+package demo.adt;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**

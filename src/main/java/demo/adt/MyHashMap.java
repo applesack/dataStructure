@@ -1,6 +1,4 @@
-package demo.myImpl.dataStructrue;
-
-import lombok.extern.slf4j.Slf4j;
+package demo.adt;
 
 import java.util.Collection;
 import java.util.HashMap;
